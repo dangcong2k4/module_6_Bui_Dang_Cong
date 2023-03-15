@@ -1,0 +1,90 @@
+<section class="login-block" style="margin-top: 70px">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 login-sec">
+        <h2 class="text-center">Đăng Nhập</h2>
+        <form class="login-form" >
+          <div class="form-group" style="position: relative">
+            <label  class="text-title" style="font-weight: bold">Tên đăng nhập</label>
+            <input formControlName="username" type="text" class="form-control" >
+            <span class="spin"></span>
+            <span style="position: absolute" class="text-danger font-italic"></span>
+          </div>
+          <div class="form-group" style="margin-top: 10px">
+            <label  class="text-title" style="font-weight: bold">Mật Khẩu</label>
+            <input formControlName="password" type="password" class="form-control" >
+          </div>
+          <div  style="margin-top: 10px" class="form-check">
+            <label class="form-check-label">
+              <input type="checkbox" checked formControlName="rememberMe" class="form-check-input">
+              <small>Nhớ mật khẩu</small>
+            </label>
+            <button style="margin-left: 150px" type="submit" class="btn btn-login float-right">Đăng Nhập</button>
+          </div>
+        </form>
+        <div>
+          <a class="" routerLink="/login/signUp" style="cursor: pointer;color: blue">Bạn chưa có tài khoản ?</a>
+        </div>
+      </div>
+      <div class="col-md-8 banner-sec">
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+          <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br> <br>
+</section>
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Đăng kí</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form >
+          <div class="mb-3 row">
+            <label class="col-sm-2 col-form-label">Tài khoản</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" formControlName="username">
+              <span class="text-danger"></span>
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label class="col-sm-2 col-form-label">Họ và tên</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" formControlName="name">
+              <span class="text-danger"></span>
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label class="col-sm-2 col-form-label">Email</label>
+            <div class="col-sm-10">
+              <input type="email" class="form-control" formControlName="email">
+              <span class="text-danger"></span>
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label class="col-sm-2 col-form-label">Mật khẩu</label>
+            <div class="col-sm-10">
+              <input type="password" class="form-control" formControlName="password">
+              <span class="text-danger"></span>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="dismiss" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+            <button type="submit" class="btn btn-primary" >Xác Nhận</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
