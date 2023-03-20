@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {TokenService} from "../../service/JWT/token.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -6,13 +8,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  value = 0;
-
-  constructor() { }
+  role = 'none';
+  name = 'Đăng nhập'
+  isLogged = false;
+  constructor(private token: TokenService,private router: Router) { }
 
   ngOnInit(): void {
+    window.scrollTo(0,0)
   }
-  choice(id: number) {
-    this.value = id;
+
+  logout() {
+    this.role = 'none';
+    this.name = 'Đăng nhập';
+    this.isLogged = false;
+    this.token.logout();
+    this.router.navigateByUrl('/');
   }
 }

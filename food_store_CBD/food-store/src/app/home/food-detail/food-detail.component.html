@@ -1,0 +1,66 @@
+
+  <div class="container" style="margin-bottom: 50px;margin-top: 50px">
+    <div class="heading-section">
+      <h2>Chi tiết món ăn</h2>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <img src="https://i.ibb.co/RT0bjJq/food1.png" />
+      </div>
+      <div class="col-md-6">
+        <div class="product-dtl">
+          <div class="product-info">
+            <div class="product-name">Món cánh gà cháy</div>
+            <div class="reviews-counter">
+              <div class="rate">
+                <input type="radio" id="star5" name="rate" value="5" checked />
+                <label for="star5" title="text">5 stars</label>
+                <input type="radio" id="star4" name="rate" value="4" checked />
+                <label for="star4" title="text">4 stars</label>
+                <input type="radio" id="star3" name="rate" value="3" checked />
+                <label for="star3" title="text">3 stars</label>
+                <input type="radio" id="star2" name="rate" value="2" />
+                <label for="star2" title="text">2 stars</label>
+                <input type="radio" id="star1" name="rate" value="1" />
+                <label for="star1" title="text">1 star</label>
+              </div>
+              <span>3 Sao</span>
+            </div>
+            <div class="product-price-discount"><span>25.000 đ</span><span class="line-through">29.000 đ</span></div>
+          </div>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          <div class="row">
+            <div class="col-md-6">
+              <label for="size">Size</label>
+              <select id="size" name="size" class="form-control">
+                <option>S</option>
+                <option>M</option>
+                <option>L</option>
+                <option>XL</option>
+              </select>
+            </div>
+
+          </div>
+          <div class="product-count">
+            <label for="size">Quantity</label>
+            <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+              <button class="btn btn-link px-2" style="background-color: #FF9933"
+                      onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+                <i class="fas fa-minus" style="color: white"></i>
+              </button>
+
+              <input id="form1" min="0" style="width: 50px" name="quantity" value="1" type="number"
+                     class="form-control form-control-sm" />
+
+              <button class="btn btn-link px-2" style="background-color: #FF9933"
+                      onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+                <i class="fas fa-plus" style="color: white"></i>
+              </button>
+            </div>
+            <a style="text-decoration: none;cursor: pointer" class="round-black-btn" >Add to Cart</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+

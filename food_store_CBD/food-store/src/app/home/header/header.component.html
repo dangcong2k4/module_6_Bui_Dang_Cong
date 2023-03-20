@@ -9,7 +9,7 @@
       <img style="height: 300px" src="https://i.imgur.com/ZraoibM.png" class="d-block w-100" alt="https://i.imgur.com/ZraoibM.png">
     </div>
     <div class="carousel-item">
-      <img style="height: 300px" src="https://i.imgur.com/ZraoibM.png" class="d-block w-100" alt="https://i.imgur.com/ZraoibM.png">
+      <img style="height: 300px" src="https://i.imgur.com/w0uw2Pa.png" class="d-block w-100" alt="https://i.imgur.com/w0uw2Pa.png">
     </div>
   </div>
   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
@@ -24,38 +24,10 @@
 
 
 
-<!--<div class="sticky-top">-->
-<!--  <div class="container-header bodyHeader">-->
-<!--    <div class="container">-->
-<!--      <div class="header-content navbar row  justify-content-between align-items-center">-->
-<!--        <div class="logo-now col-auto"><span><a routerLink="/body">-->
-<!--        <img style="height: 60px;width: 120px" src="https://i.imgur.com/XwUUZ5z.png" alt="ShopeeFood">-->
-<!--      </a></span></div>-->
-
-<!--        <div class="main-nav col">-->
-<!--          <a class="nav-item active" (click)="choice(0)" [class.new]="value == 0" style="font-size: 30px;text-decoration: none; margin-left: 150px" routerLink="/body">Đồ ăn</a>-->
-<!--          <a class="nav-item " (click)="choice(1)" [class.new]="value == 1" style="font-size: 30px;text-decoration: none" routerLink="/cart">Giỏ hàng</a>-->
-<!--          <a class="nav-item" (click)="choice(2)" [class.new]="value == 2" style="font-size: 30px;text-decoration: none" >Quản lý</a>-->
-
-<!--        </div><div class="header-icon-search col-auto">-->
-<!--      <span data-toggle="modal" data-target="#modal-search">-->
-<!--        <span class="icon icon-search-dark"></span>-->
-<!--      </span>-->
-<!--      </div>-->
-
-<!--        <div class="user-acc col-auto">-->
-<!--          <button type="button" class="btn btn-none-bg btn-login"  routerLink="/login">Đăng nhập</button>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
-
-
 <div class="sticky-top">
 <nav class="navbar navbar-expand-lg navbar-light container-header bodyHeader bg-light">
   <div class="container">
-    <a class="navbar-brand" style="font-weight: bold" routerLink="/"><i class="fa-solid fa-shirt"></i> Mouse Store</a>
+    <a class="navbar-brand" style="font-weight: bold" routerLink="/"><img style="width: 100px;height: 50px" src="https://i.imgur.com/XwUUZ5z.png"></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
             aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -63,13 +35,13 @@
     <div style="margin-left: 100px" class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ms-1">
         <li class="nav-item cart">
-          <a class="nav-link" style="display: inline" routerLink="/body"><i style="color: black" class="fa-solid fa-utensils"></i> Đồ ăn</a>
+          <a style="color: black" class="nav-link" routerLink="/"><i style="color: black" class="fa-solid fa-utensils"></i><p class="hover"> Đồ ăn</p></a>
         </li>
         <li class="nav-item cart">
-          <a routerLink="/cart" style="display: inline"><i style="color: black" class="fa-solid fa-cart-shopping icon"></i> Giỏ hàng</a>
+          <a style="color: black" routerLink="/cart"><i style="color: black" class="fa-solid fa-cart-shopping icon"></i><p class="hover"> Giỏ hàng</p></a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Quản lý</a>
+        <li class="nav-item cart">
+          <a style="color: black" class="nav-link"  routerLink="/food"><i style="color: black"  class="fa-solid fa-wrench"></i><p class="hover"> Quản lý</p></a>
         </li>
       </ul>
     </div>
@@ -81,9 +53,12 @@
   </span>
     </div>
     <div  class="cart size-text" style="margin-left: 80px;">
-      <a routerLink="/login"  style="text-decoration: none;color: white"><i class="fa-solid fa-user icon" style="color: black"></i> Đăng nhập</a>
-
+      <a routerLink="/login"  style="text-decoration: none;color: black"><i class="fa-solid fa-user icon" style="color: black"></i><p class="hover"> Đăng nhập</p></a>
     </div>
+    <div  class="cart size-text" style="margin-left: 80px;">
+      <a style="cursor: pointer" (click)="logout()"><p class="hover"> Đăng xuất</p></a>
+    </div>
+
   </div>
 </nav>
 </div>

@@ -10,6 +10,7 @@ export class BodyComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    window.scrollTo(0, 300);
   }
 
 }
