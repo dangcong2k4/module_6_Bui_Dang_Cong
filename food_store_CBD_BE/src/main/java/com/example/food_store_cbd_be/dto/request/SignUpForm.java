@@ -1,6 +1,6 @@
-package com.codegym.dto.request;
+package com.example.food_store_cbd_be.dto.request;
 
-import com.codegym.model.user.User;
+import com.example.food_store_cbd_be.model.user.User;
 import org.springframework.validation.Errors;
 
 import javax.validation.constraints.NotBlank;

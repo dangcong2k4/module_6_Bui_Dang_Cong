@@ -1,4 +1,4 @@
-package com.codegym.model.user;
+package com.example.food_store_cbd_be.model.user;
 
 import org.hibernate.annotations.NaturalId;
 

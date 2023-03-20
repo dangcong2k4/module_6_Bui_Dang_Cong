@@ -1,18 +1,17 @@
-package com.codegym.controller.authController;
+package com.example.food_store_cbd_be.controller;
 
-import com.codegym.dto.request.ChangePasswordForm;
-import com.codegym.dto.request.SignInForm;
-import com.codegym.dto.request.SignUpForm;
-import com.codegym.dto.request.UpdateUserForm;
-import com.codegym.dto.response.JwtResponse;
-import com.codegym.dto.response.ResponseMessage;
-import com.codegym.model.user.Role;
-import com.codegym.model.user.User;
-import com.codegym.security.jwt.JwtProvider;
-import com.codegym.security.userPrincipcal.UserPrinciple;
-import com.codegym.service.IRoleService;
-import com.codegym.service.IUserService;
-import com.codegym.service.impl.UserService;
+import com.example.food_store_cbd_be.dto.request.ChangePasswordForm;
+import com.example.food_store_cbd_be.dto.request.SignInForm;
+import com.example.food_store_cbd_be.dto.request.SignUpForm;
+import com.example.food_store_cbd_be.dto.request.UpdateUserForm;
+import com.example.food_store_cbd_be.dto.response.JwtResponse;
+import com.example.food_store_cbd_be.dto.response.ResponseMessage;
+import com.example.food_store_cbd_be.model.user.Role;
+import com.example.food_store_cbd_be.model.user.User;
+import com.example.food_store_cbd_be.security.jwt.JwtProvider;
+import com.example.food_store_cbd_be.security.userPrincipcal.UserPrinciple;
+import com.example.food_store_cbd_be.service.IRoleService;
+import com.example.food_store_cbd_be.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +23,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -36,7 +36,7 @@ import java.util.Set;
 @CrossOrigin("*")
 public class AuthController {
     @Autowired
-    private IUserService iUserService =new UserService();
+    private IUserService iUserService;
     @Autowired
     private IRoleService iRoleService;
     @Autowired
@@ -45,15 +45,9 @@ public class AuthController {
     private AuthenticationManager authenticationManager;
     @Autowired
     private JwtProvider jwtProvider;
-    /**
-     * Created by: CuongVV
-     * Date created: 27/2/2023
-     * Function: sign up to create user with sign up form
-     * @param signUpForm
-     * @return
-     */
+
     @PostMapping("/signup")
-    public ResponseEntity<?> register(@Valid @RequestBody SignUpForm signUpForm,BindingResult bindingResult) {
+    public ResponseEntity<?> register(@Valid @RequestBody SignUpForm signUpForm, BindingResult bindingResult) {
         new SignUpForm().validate(iUserService.findAll(),signUpForm,bindingResult);
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(bindingResult.getFieldErrors(),HttpStatus.BAD_REQUEST);
@@ -86,13 +80,7 @@ public class AuthController {
         iUserService.save(user);
         return new ResponseEntity<>(new ResponseMessage("Đăng kí thành công"), HttpStatus.OK);
     }
-    /**
-     * Created by: CuongVV
-     * Date created: 27/2/2023
-     * Function: login with only username and password
-     * @param signInForm
-     * @return
-     */
+
     @PostMapping("/login")
 
     public ResponseEntity<?> login( @RequestBody SignInForm signInForm ) {
@@ -109,15 +97,9 @@ public class AuthController {
                 userPrinciple.getDateOfBirth()
                 , userPrinciple.getAuthorities()));
     }
-    /**
-     * Created by: CuongVV
-     * Date created: 27/2/2023
-     * Function: change password for user
-     * @param changePasswordForm
-     * @return
-     */
+
     @PostMapping("/change-password")
-    public ResponseEntity<?> changePassword(@Valid @RequestBody ChangePasswordForm changePasswordForm,BindingResult bindingResult) {
+    public ResponseEntity<?> changePassword(@Valid @RequestBody ChangePasswordForm changePasswordForm, BindingResult bindingResult) {
         if (!Objects.equals(changePasswordForm.getNewPassword(), changePasswordForm.getConfirmPassword())) {
             bindingResult.rejectValue("confirmPassword","confirmPassword","Mật khẩu xác nhận không trùng với mật khẩu mới");
 //            return new  ResponseEntity<>(new ResponseMessage("Mật khẩu xác nhận " +
@@ -139,12 +121,7 @@ public class AuthController {
         return new ResponseEntity<>(new ResponseMessage("Thay đổi mật khẩu thất bại"),HttpStatus.BAD_REQUEST);
     }
 
-    /**
-     * Created by: CuongVV
-     * Date created: 27/2/2023
-     * Function: logout to close connect to server
-     * @param: none
-     */
+
     @GetMapping("/logout")
     public ResponseEntity<?> logout(HttpServletRequest request, HttpServletResponse response){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -155,14 +132,9 @@ public class AuthController {
         }
         return new ResponseEntity<>(new ResponseMessage("Đăng xuất thất bại"),HttpStatus.NOT_ACCEPTABLE);
     }
-    /**
-     * Created by: CuongVV
-     * Date created: 27/2/2023
-     * Function: update user
-     * @param: none
-     */
+
     @PostMapping("/update")
-    public ResponseEntity<?> updateUser(@Valid @RequestBody UpdateUserForm updateUserForm,BindingResult bindingResult) {
+    public ResponseEntity<?> updateUser(@Valid @RequestBody UpdateUserForm updateUserForm, BindingResult bindingResult) {
        new UpdateUserForm().validate(iUserService.findAll(),updateUserForm,bindingResult);
         if (bindingResult.hasErrors()) {
            return new ResponseEntity<>(bindingResult.getFieldErrors(),HttpStatus.NOT_ACCEPTABLE);
@@ -170,19 +142,9 @@ public class AuthController {
         iUserService.updateUser(updateUserForm);
         return new ResponseEntity<>(new ResponseMessage("Chỉnh sửa thông tin thành công"),HttpStatus.ACCEPTED);
     }
-    /**
-     * Created by: CuongVV
-     * Date created: 27/2/2023
-     * Function: get all customer
-     * @param: none
-     */
-    @GetMapping("/customer")
-    public ResponseEntity<?> getAll() {
-        return new ResponseEntity<>(iUserService.findAll(),HttpStatus.OK);
-    }
 
-    @GetMapping("/profile/{username}")
-    public ResponseEntity<?> profile(@PathVariable("username") String username) {
-        return new ResponseEntity<>(iUserService.userLogin(username),HttpStatus.ACCEPTED);
+    @GetMapping("/profile/{id}")
+    public ResponseEntity<?> profile(@PathVariable("id") int id) {
+        return new ResponseEntity<>(iUserService.findById(id),HttpStatus.ACCEPTED);
     }
 }

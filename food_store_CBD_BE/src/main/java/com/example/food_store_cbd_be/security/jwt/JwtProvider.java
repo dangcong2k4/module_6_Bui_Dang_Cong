@@ -1,6 +1,6 @@
-package com.codegym.security.jwt;
+package com.example.food_store_cbd_be.security.jwt;
 
-import com.codegym.security.userPrincipcal.UserPrinciple;
+import com.example.food_store_cbd_be.security.userPrincipcal.UserPrinciple;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,6 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+
 @Component
 public class JwtProvider {
     private static final Logger logger = LoggerFactory.getLogger(JwtProvider.class);

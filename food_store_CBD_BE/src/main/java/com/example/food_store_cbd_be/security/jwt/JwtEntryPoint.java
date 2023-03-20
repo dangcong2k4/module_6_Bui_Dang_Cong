@@ -1,4 +1,4 @@
-package com.codegym.security.jwt;
+package com.example.food_store_cbd_be.security.jwt;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,7 +1,7 @@
-package com.codegym.security.userPrincipcal;
+package com.example.food_store_cbd_be.security.userPrincipcal;
 
-import com.codegym.model.user.User;
-import com.codegym.repository.IUserRepository;
+import com.example.food_store_cbd_be.model.user.User;
+import com.example.food_store_cbd_be.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

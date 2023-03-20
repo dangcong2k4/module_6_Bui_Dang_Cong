@@ -1,4 +1,4 @@
-package com.codegym.model.user;
+package com.example.food_store_cbd_be.model.user;
 
 import javax.persistence.*;
 import java.util.HashSet;

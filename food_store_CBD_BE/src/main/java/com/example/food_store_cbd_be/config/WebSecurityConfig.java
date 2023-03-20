@@ -1,8 +1,8 @@
-package com.codegym.config;
+package com.example.food_store_cbd_be.config;
 
-import com.codegym.security.jwt.JwtEntryPoint;
-import com.codegym.security.jwt.JwtTokenFilter;
-import com.codegym.security.userPrincipcal.UserDetailService;
+import com.example.food_store_cbd_be.security.jwt.JwtEntryPoint;
+import com.example.food_store_cbd_be.security.jwt.JwtTokenFilter;
+import com.example.food_store_cbd_be.security.userPrincipcal.UserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

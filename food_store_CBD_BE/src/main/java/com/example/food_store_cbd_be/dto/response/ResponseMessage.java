@@ -1,4 +1,4 @@
-package com.codegym.dto.response;
+package com.example.food_store_cbd_be.dto.response;
 
 public class ResponseMessage {
     private String message;

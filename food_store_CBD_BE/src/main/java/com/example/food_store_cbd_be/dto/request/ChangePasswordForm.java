@@ -1,4 +1,4 @@
-package com.codegym.dto.request;
+package com.example.food_store_cbd_be.dto.request;
 
 import javax.validation.constraints.NotBlank;
 
