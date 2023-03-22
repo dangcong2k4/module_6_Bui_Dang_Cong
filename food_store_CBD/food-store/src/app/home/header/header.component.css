@@ -102,9 +102,11 @@
   width: 40px;
   height: 40px
 }
-
-.container-header .dropdown-menu {
-  padding: 0
+.sticky-top3{
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 3000;
 }
 
 .container-header .dropdown-item {

@@ -13,6 +13,7 @@ import {HomeModule} from "./home/home.module";
 import {LogInModule} from "./log-in/log-in.module";
 import { ListComponent } from './food/list/list.component';
 import {FoodModule} from "./food/food.module";
+import {ShareService} from "./service/JWT/share.service";
 
 @NgModule({
   declarations: [
@@ -22,7 +23,6 @@ import {FoodModule} from "./food/food.module";
     FooterComponent,
     BodyComponent,
     CartComponent,
-    FoodDetailComponent,
     ListComponent
   ],
   imports: [
@@ -32,7 +32,7 @@ import {FoodModule} from "./food/food.module";
     LogInModule,
     FoodModule
   ],
-  providers: [],
+  providers: [ShareService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

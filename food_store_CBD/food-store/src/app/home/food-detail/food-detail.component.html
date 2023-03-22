@@ -1,16 +1,21 @@
+<div class="container py-5" style="margin-bottom: 100px;margin-top: 50px; border-radius: 15px">
+  <div class="card card-registration card-registration-2" style="border-radius: 15px;">
 
-  <div class="container" style="margin-bottom: 50px;margin-top: 50px">
+
     <div class="heading-section">
       <h2>Chi tiết món ăn</h2>
     </div>
     <div class="row">
-      <div class="col-md-6">
-        <img src="https://i.ibb.co/RT0bjJq/food1.png" />
+      <div class="col-md-6 text-center">
+        <div style="margin-bottom: 10px">
+          <img style="width: 365px;height: 365px" src="{{food.image}}" />
+        </div>
+
       </div>
       <div class="col-md-6">
         <div class="product-dtl">
           <div class="product-info">
-            <div class="product-name">Món cánh gà cháy</div>
+            <div class="product-name">{{food.name}}</div>
             <div class="reviews-counter">
               <div class="rate">
                 <input type="radio" id="star5" name="rate" value="5" checked />
@@ -26,13 +31,13 @@
               </div>
               <span>3 Sao</span>
             </div>
-            <div class="product-price-discount"><span>25.000 đ</span><span class="line-through">29.000 đ</span></div>
+            <div class="product-price-discount"><span>{{food.price| currency:'VND':'symbol'}}</span><span class="line-through">40.000 đ</span></div>
           </div>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          <p>{{food.description}}</p>
           <div class="row">
             <div class="col-md-6">
-              <label for="size">Size</label>
-              <select id="size" name="size" class="form-control">
+              <label for="size">Size :</label>
+              <select id="size" name="size" style="width: 115px" class="form-control">
                 <option>S</option>
                 <option>M</option>
                 <option>L</option>
@@ -57,10 +62,11 @@
                 <i class="fas fa-plus" style="color: white"></i>
               </button>
             </div>
-            <a style="text-decoration: none;cursor: pointer" class="round-black-btn" >Add to Cart</a>
+            <button class="round-black-btn btn btn-block btn-lg btn-size"
+                    data-mdb-ripple-color="muted" type="button">Thêm vào giỏ hàng</button>
           </div>
         </div>
       </div>
     </div>
   </div>
-
+</div>

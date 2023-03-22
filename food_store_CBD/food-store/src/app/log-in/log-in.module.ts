@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { LogInRoutingModule } from './log-in-routing.module';
 import {ReactiveFormsModule} from "@angular/forms";
 import {LoginComponent} from "./log-in.component";
+import {ShareService} from "../service/JWT/share.service";
 
 
 @NgModule({
@@ -12,6 +13,9 @@ import {LoginComponent} from "./log-in.component";
     CommonModule,
     LogInRoutingModule,
     ReactiveFormsModule
+  ],
+  providers:[
+    ShareService
   ]
 })
 export class LogInModule { }

@@ -4,7 +4,7 @@
       <div class="col-md-4 login-sec">
         <h2 class="text-center">Đăng Nhập</h2>
         <form [formGroup]="form"  class="login-form" (ngSubmit)="login()">
-          <div class="form-group" style="position: relative">
+          <div class="form-group" style="position: relative;height: 70px">
             <label  class="text-title" style="font-weight: bold">Tên đăng nhập</label>
             <input formControlName="username" type="text" class="form-control" >
             <span class="spin"></span>
@@ -16,7 +16,7 @@
           </div>
           <div  style="margin-top: 10px" class="form-check">
             <label class="form-check-label">
-              <input type="checkbox" checked formControlName="rememberMe" class="form-check-input">
+              <input type="checkbox"  formControlName="rememberMe" class="form-check-input">
               <small>Nhớ mật khẩu</small>
             </label>
             <button style="margin-left: 220px" type="submit" class="btn btn-login float-right">Đăng Nhập</button>

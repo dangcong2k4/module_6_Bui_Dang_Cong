@@ -8,7 +8,7 @@ import {FoodDetailComponent} from "./food-detail/food-detail.component";
 const routes: Routes = [
   {path:'',component:BodyComponent},
   {path:'cart',component:CartComponent},
-  {path:'detail',component:FoodDetailComponent},
+  {path:'detail/:id',component:FoodDetailComponent},
 ];
 
 @NgModule({

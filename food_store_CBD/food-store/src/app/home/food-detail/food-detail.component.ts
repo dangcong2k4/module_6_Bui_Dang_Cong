@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {FoodService} from "../../service/food.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-food-detail',
@@ -6,11 +8,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./food-detail.component.css']
 })
 export class FoodDetailComponent implements OnInit {
-
-  constructor() { }
+  food
+  constructor(private foodService:FoodService, private activatedRoute: ActivatedRoute) {
+    this.foodService.findCommodityById(this.activatedRoute.snapshot.paramMap.get('id')).subscribe(next=>{
+      this.food=next
+    })
+  }
 
   ngOnInit(): void {
-    window.scrollTo(0, 300);
   }
 
 }

@@ -261,3 +261,6 @@
   text-transform: uppercase;
   cursor: pointer;
 }
+.btn-size{
+  width: 350px;
+}

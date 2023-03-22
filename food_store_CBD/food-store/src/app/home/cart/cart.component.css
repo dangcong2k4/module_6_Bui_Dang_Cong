@@ -32,3 +32,10 @@
     border-bottom-right-radius: 16px;
   }
 }
+
+.btn-lg1, .btn-group-lg > .btn {
+  padding: 0.5rem 1rem;
+  font-size: 1.25rem;
+  border-radius: 0.3rem;
+  background-color: #FF9933;
+}

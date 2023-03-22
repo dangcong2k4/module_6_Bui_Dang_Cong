@@ -1,12 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {FormArray, FormControl, FormGroup} from "@angular/forms";
-// import {LoginService} from "../../service/JWT/login.service";
 import {TokenService} from "../service/JWT/token.service";
 import {Router} from "@angular/router";
 import {ShareService} from "../service/JWT/share.service";
 import Swal from "sweetalert2";
 import {Title} from "@angular/platform-browser";
 import {LoginService} from "../service/JWT/login.service";
+import {Subscription} from "rxjs";
+import {HeaderComponent} from "../home/header/header.component";
 
 @Component({
   selector: 'app-login',
@@ -33,7 +34,7 @@ export class LoginComponent implements OnInit {
     roles: new FormControl('customer')
   });
   islogged = false;
-  constructor(private title:Title,private loginService: LoginService, private token: TokenService, private router: Router, private share: ShareService) {
+  constructor(private title: Title, private loginService: LoginService, private token: TokenService, private router: Router, private share: ShareService) {
   }
 
   ngOnInit(): void {
@@ -47,6 +48,7 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.loginService.login(this.form.value).subscribe(next => {
+        this.share.sendClickEvent();
         if (this.form.controls.rememberMe.value) {
           this.token.rememberMe(next.token, next.id, next.name, next.username, next.phoneNumber, next.email, next.address, next.age,
             next.gender, next.dateOfBirth, next.avatar, next.roles, 'local');
@@ -55,15 +57,10 @@ export class LoginComponent implements OnInit {
           this.token.rememberMe(next.token, next.id, next.name, next.username, next.phoneNumber, next.email, next.address, next.age,
             next.gender, next.dateOfBirth, next.avatar, next.roles, 'session');
         }
+      this.token.setIsLoggedIn(next.name);
         this.share.sendClickEvent();
-        this.router.navigateByUrl('/')
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Đăng nhập thành công!',
-        showConfirmButton: false,
-        timer: 2000
-      });
+
+      this.router.navigate(['/'])
       }, error => {
         this.message = error.error.message
       }

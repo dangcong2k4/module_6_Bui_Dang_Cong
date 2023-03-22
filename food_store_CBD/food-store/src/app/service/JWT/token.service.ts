@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Cart} from "../../model/cart";
+import {Observable, Subject} from "rxjs";
 
 
 const TOKEN = 'Token_key';
@@ -22,6 +23,7 @@ const CART = 'Cart_key';
 export class TokenService {
   json = '';
   cart: Cart[];
+  isUserNameObservable = new Subject<any>();
 
   constructor() { }
   isLogger() {
@@ -295,5 +297,11 @@ export class TokenService {
   logout() {
     window.localStorage.clear();
     window.sessionStorage.clear();
+  }
+  setIsLoggedIn(name: any) {
+    this.isUserNameObservable.next(name);
+  }
+  getUserNameLoggedIn(): Observable<any> {
+    return this.isUserNameObservable.asObservable();
   }
 }
