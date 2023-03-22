@@ -18,4 +18,14 @@ public class FoodService implements IFoodService {
     public Page<Food> findAllFood(Pageable pageable) {
         return foodRepository.findAll(pageable);
     }
+
+    @Override
+    public Page<Food> showFoodForCustomer(Pageable pageable) {
+        return foodRepository.findAll(pageable);
+    }
+
+    @Override
+    public Food findFood(Integer id) {
+        return foodRepository.findFood(id);
+    }
 }

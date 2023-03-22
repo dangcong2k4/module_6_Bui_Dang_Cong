@@ -6,4 +6,8 @@ import org.springframework.data.domain.Pageable;
 
 public interface IFoodService {
     Page<Food> findAllFood(Pageable pageable);
+
+    Page<Food> showFoodForCustomer(Pageable pageable);
+
+    Food findFood(Integer id);
 }
