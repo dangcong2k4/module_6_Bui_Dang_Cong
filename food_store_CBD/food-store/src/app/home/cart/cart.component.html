@@ -1,4 +1,12 @@
-<section style="background-color: white;height: 850px;margin: 50px">
+
+<div  *ngIf="cart.length==0" style="height: 600px;margin-top: 50px" class="text-center cnt-div">
+  <img src="https://i.imgur.com/FaHdzrX.png" alt="">
+  <h1 class="text-center">giỏ hàng của bạn đang trống</h1>
+  <button class="btn btn-primary" style="margin-top: 50px" routerLink="/">Vào mua hàng</button>
+</div>
+
+
+<section *ngIf="cart.length!=0" style="background-color: white;height: 850px;margin: 50px">
   <div class="container py-5 ">
     <div class="row d-flex justify-content-center align-items-center ">
       <div class="col-12">
@@ -8,111 +16,46 @@
               <div class="col-lg-8">
                 <div class="p-5">
                   <hr class="my-4">
+<!--                  <input  type="hidden" formControlName="user" value="{{user.id}}">-->
 
-                  <div class="row mb-4 d-flex justify-content-between align-items-center">
+                  <div *ngFor="let x of cart;index as i" class="row mb-4 d-flex justify-content-between align-items-center">
                     <div class="col-md-2 col-lg-2 col-xl-2">
                       <img
-                        src="https://i.ibb.co/RT0bjJq/food1.png"
+                        src="{{x.image}}}"
                         class="img-fluid rounded-3" alt="Cotton T-shirt">
                     </div>
                     <div class="col-md-3 col-lg-3 col-xl-3">
 
-                      <h6 class="text-black mb-0">Món ăn chay</h6>
+                      <h6 class="text-black mb-0">{{x.name}}</h6>
                     </div>
-                    <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                      <button class="btn btn-link px-2"
-                              onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                        <i class="fas fa-minus"></i>
-                      </button>
 
-                      <input id="form1" min="0" style="width: 50px" name="quantity" value="1" type="number"
+
+
+                    <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                        <button [disabled]="x.quantity == 0" style="background-color: #FF9933" class="btn btn-link px-2" (click)="stepDown(i)">
+                          <i class="fas fa-minus" style="color: white"></i>
+                        </button>
+
+                      <input [value]="x.quantity" style="width: 50px" value="1" type="number"
                              class="form-control form-control-sm" />
 
-                      <button class="btn btn-link px-2"
-                              onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                        <i class="fas fa-plus"></i>
+                      <button  style="background-color: #FF9933" class="btn btn-link px-2" (click)="stepUp(i)">
+                        <i class="fas fa-plus" style="color: white"></i>
                       </button>
                     </div>
+
                     <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                      <h6 class="mb-0">35.000 đ</h6>
+                      <h6 class="mb-0">{{x.price | currency:'VND':'symbol'}}</h6>
                     </div>
                     <div class="col-md-1 col-lg-1 col-xl-1 text-end">
                       <a href="#!" class="text-muted"><i class="fas fa-times"></i></a>
                     </div>
+                    <hr class="my-4">
                   </div>
-
-                  <hr class="my-4">
-
-                  <div class="row mb-4 d-flex justify-content-between align-items-center">
-                    <div class="col-md-2 col-lg-2 col-xl-2">
-                      <img
-                        src="https://i.ibb.co/JpwBtYk/food2.png"
-                        class="img-fluid rounded-3" alt="Cotton T-shirt">
-                    </div>
-                    <div class="col-md-3 col-lg-3 col-xl-3">
-
-                      <h6 class="text-black mb-0">Cánh gà cháy</h6>
-                    </div>
-                    <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                      <button class="btn btn-link px-2"
-                              onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                        <i class="fas fa-minus"></i>
-                      </button>
-
-                      <input id="form1" min="0" style="width: 50px" name="quantity" value="1" type="number"
-                             class="form-control form-control-sm" />
-
-                      <button class="btn btn-link px-2"
-                              onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                        <i class="fas fa-plus"></i>
-                      </button>
-                    </div>
-                    <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                      <h6 class="mb-0">25.000 đ</h6>
-                    </div>
-                    <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                      <a href="#!" class="text-muted"><i class="fas fa-times"></i></a>
-                    </div>
-                  </div>
-
-                  <hr class="my-4">
-
-                  <div class="row mb-4 d-flex justify-content-between align-items-center">
-                    <div class="col-md-2 col-lg-2 col-xl-2">
-                      <img
-                        src="https://i.imgur.com/oAp8roo.png"
-                        class="img-fluid rounded-3" alt="Cotton T-shirt">
-                    </div>
-                    <div class="col-md-3 col-lg-3 col-xl-3">
-                      <h6 class="text-black mb-0">Cơm tấm</h6>
-                    </div>
-                    <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                      <button class="btn btn-link px-2"
-                              onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                        <i class="fas fa-minus"></i>
-                      </button>
-
-                      <input id="form3" min="0" style="width: 50px" name="quantity" value="1" type="number"
-                             class="form-control form-control-sm" />
-
-                      <button class="btn btn-link px-2"
-                              onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                        <i class="fas fa-plus"></i>
-                      </button>
-                    </div>
-                    <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                      <h6 class="mb-0"> 30.000 đ</h6>
-                    </div>
-                    <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                      <a href="#!" class="text-muted"><i class="fas fa-times"></i></a>
-                    </div>
-                  </div>
-
-                  <hr class="my-4">
 
                   <div class="pt-5">
-                    <h6 class="mb-0"><a href="#!" class="text-body"><i
-                      class="fas fa-long-arrow-alt-left me-2"></i>Back to shop</a></h6>
+                    <h6 class="mb-0"><a routerLink="/" class="text-body"><i
+                      class="fas fa-long-arrow-alt-left me-2"></i>Quay lại cửa hàng</a></h6>
                   </div>
                 </div>
               </div>
@@ -122,8 +65,8 @@
                   <hr class="my-4">
 
                   <div class="d-flex justify-content-between mb-4">
-                    <h5 class="text-uppercase">3 món</h5>
-                    <h5>90.000 đ</h5>
+                    <h5 class="text-uppercase">{{quantity}} món</h5>
+                    <h5>{{total}} đ</h5>
                   </div>
 
                   <h5 class="text-uppercase mb-3">Phí vận chuyển</h5>
@@ -131,9 +74,6 @@
                   <div class="mb-4 pb-2">
                     <select class="select form-control" disabled>
                       <option value="1">20.000 đ</option>
-                      <option value="2">Two</option>
-                      <option value="3">Three</option>
-                      <option value="4">Four</option>
                     </select>
                   </div>
 
@@ -150,10 +90,25 @@
 
                   <div class="d-flex justify-content-between mb-5">
                     <h5 class="text-uppercase">Tổng tiền</h5>
-                    <h5>110.000 đ</h5>
+                    <h5>{{total+20000 | currency:'VND':'symbol'}}</h5>
+                  </div>
+                  <div class="row align-items-center py-3">
+                    <div class="col-md-3 ps-5">
+                      <label for="trademark" style="font-weight: bold" class="mb-0">Hình thức thanh toán:<sup style="color: red;font-size: 15px" title="Bắt buộc">*</sup>
+                      </label>
+                    </div>
+                    <div class="col-md-9 pe-5" style="position: relative">
+                      <select formControlName="paymentMethod" required id="trademark" class="form-control"
+                              aria-label="Default select example">
+                        <option value="">-----Chọn-----</option>
+                        <option *ngFor="let paymentMethod of payment"
+                                [ngValue]="paymentMethod">{{paymentMethod.name}}</option>
+                      </select>
+                    </div>
+
                   </div>
 
-                  <button type="button" class="btn btn-dark btn-block btn-lg1"
+                  <button type="button" (click)="addBill()" class="btn btn-dark btn-block btn-lg1"
                           data-mdb-ripple-color="dark">Thanh toán</button>
                 </div>
               </div>

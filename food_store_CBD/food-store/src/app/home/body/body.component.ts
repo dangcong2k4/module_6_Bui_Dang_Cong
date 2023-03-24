@@ -16,7 +16,7 @@ export class BodyComponent implements OnInit {
 
   ngOnInit(): void {
     this.title.setTitle('Trang Chủ');
-    window.scroll(0,300)
+    window.scrollTo(1900, 300);
   }
 
   getAll() {

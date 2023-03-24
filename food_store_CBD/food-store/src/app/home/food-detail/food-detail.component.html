@@ -1,5 +1,5 @@
-<div class="container py-5" style="margin-bottom: 100px;margin-top: 50px; border-radius: 15px">
-  <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+<div class="container py-5" style="margin-bottom: 100px;margin-top: 50px">
+  <div class="card card-registration card-registration-2">
 
 
     <div class="heading-section">
@@ -7,7 +7,7 @@
     </div>
     <div class="row">
       <div class="col-md-6 text-center">
-        <div style="margin-bottom: 10px">
+        <div style="margin-top: -50px">
           <img style="width: 365px;height: 365px" src="{{food.image}}" />
         </div>
 
@@ -34,9 +34,10 @@
             <div class="product-price-discount"><span>{{food.price| currency:'VND':'symbol'}}</span><span class="line-through">40.000 đ</span></div>
           </div>
           <p>{{food.description}}</p>
+          <br>
           <div class="row">
             <div class="col-md-6">
-              <label for="size">Size :</label>
+              <label for="size">kích thước loại :</label>
               <select id="size" name="size" style="width: 115px" class="form-control">
                 <option>S</option>
                 <option>M</option>
@@ -46,23 +47,23 @@
             </div>
 
           </div>
-          <div class="product-count">
-            <label for="size">Quantity</label>
-            <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-              <button class="btn btn-link px-2" style="background-color: #FF9933"
-                      onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                <i class="fas fa-minus" style="color: white"></i>
-              </button>
+          <div class="product-count"><br>
+<!--            <label for="size">Số lương </label>-->
+<!--            <div class="col-md-3 col-lg-3 col-xl-2 d-flex">-->
+<!--              <button class="btn btn-link px-2" style="background-color: #FF9933"-->
+<!--                      onclick="this.parentNode.querySelector('input[type=number]').stepDown()">-->
+<!--                <i class="fas fa-minus" style="color: white"></i>-->
+<!--              </button>-->
 
-              <input id="form1" min="0" style="width: 50px" name="quantity" value="1" type="number"
-                     class="form-control form-control-sm" />
+<!--              <input id="form1" min="0" style="width: 50px" name="quantity" value="1" type="number"-->
+<!--                     class="form-control form-control-sm" />-->
 
-              <button class="btn btn-link px-2" style="background-color: #FF9933"
-                      onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                <i class="fas fa-plus" style="color: white"></i>
-              </button>
-            </div>
-            <button class="round-black-btn btn btn-block btn-lg btn-size"
+<!--              <button class="btn btn-link px-2" style="background-color: #FF9933"-->
+<!--                      onclick="this.parentNode.querySelector('input[type=number]').stepUp()">-->
+<!--                <i class="fas fa-plus" style="color: white"></i>-->
+<!--              </button>-->
+<!--            </div>-->
+            <button (click)="buy()" class="round-black-btn btn btn-block btn-lg btn-size"
                     data-mdb-ripple-color="muted" type="button">Thêm vào giỏ hàng</button>
           </div>
         </div>

@@ -39,3 +39,15 @@
   border-radius: 0.3rem;
   background-color: #FF9933;
 }
+.cnt-div {
+  position: relative;
+
+
+}
+.cnt-div > img {
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+}

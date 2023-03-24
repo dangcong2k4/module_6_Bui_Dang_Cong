@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import {Cart} from "../../model/cart";
 import {Observable, Subject} from "rxjs";
+import {Food} from "../../model/food";
+import Swal from "sweetalert2";
 
 
 const TOKEN = 'Token_key';
@@ -22,7 +24,7 @@ const CART = 'Cart_key';
 })
 export class TokenService {
   json = '';
-  cart: Cart[];
+  cart: Cart[] = [];
   isUserNameObservable = new Subject<any>();
 
   constructor() { }
@@ -48,6 +50,57 @@ export class TokenService {
       return sessionStorage.getItem(STORAGE);
     }
   }
+
+  public buy(food:Food) {
+    let cart = {
+      id: food.id,
+      name: food.name,
+      image: food.image,
+      description:food.description,
+      price: food.price,
+      quantity: 0
+    }
+    if (this.getCart() == undefined) {
+      cart.quantity = 1;
+      this.cart.push(cart)
+      this.setCart(this.cart)
+    } else {
+      this.cart = this.getCart();
+      if (this.checkExist(cart.id)) {
+        this.upQuantity(cart.id,this.cart)
+        this.setCart(this.cart);
+      } else {
+        cart.quantity = 1
+        this.cart.push(cart)
+        this.setCart(this.cart);
+      }
+    }
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'them vao gio thành công!',
+      text: 'Ban da them san pham ' + cart.name + ' vao gio hang',
+      showConfirmButton: false,
+      timer: 2000
+    });
+  }
+
+  public stepUp(index:number) {
+    this.cart = this.getCart();
+    this.cart[index].quantity += 1;
+    this.setCart(this.cart)
+  }
+  public stepDown(index:number) {
+    this.cart = this.getCart();
+    if (this.cart[index] == 1) {
+      this.cart.splice(index,1)
+    } else {
+      this.cart[index].quantity -= 1
+    }
+    this.setCart(this.cart)
+
+  }
+
   public setCart(cart: Cart[]) {
     sessionStorage.removeItem(CART);
     sessionStorage.setItem(CART,JSON.stringify(cart));
@@ -60,11 +113,9 @@ export class TokenService {
       }
     }
   }
-  public checkExist(name: string) {
-    console.log(name)
-    // let cart = this.getCart();
+  public checkExist(id: number) {
     for (let i = 0; i < this.getCart().length; i++) {
-      if (this.getCart()[i].name == name) {
+      if (this.getCart()[i].id == id) {
         return true;
       }
     }
@@ -72,7 +123,7 @@ export class TokenService {
   }
   public getCart() {
     const carts = sessionStorage.getItem(CART);
-    if(carts == 'undefined') {
+    if(carts == 'undefined' || carts == undefined) {
       return this.cart;
     } else {
       this.cart = JSON.parse(carts);

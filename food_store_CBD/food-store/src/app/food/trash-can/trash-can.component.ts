@@ -4,24 +4,23 @@ import {Router} from "@angular/router";
 import Swal from "sweetalert2";
 
 @Component({
-  selector: 'app-list',
-  templateUrl: './list.component.html',
-  styleUrls: ['./list.component.css']
+  selector: 'app-trash-can',
+  templateUrl: './trash-can.component.html',
+  styleUrls: ['./trash-can.component.css']
 })
-export class ListComponent implements OnInit {
-  // food = []
+export class TrashCanComponent implements OnInit {
   foodList
   item: string;
   index = -1;
   constructor(private foodService:FoodService, private router:Router) {
-    this.getAll()
+    this.getTrashCan()
   }
 
   ngOnInit(): void {
     window.scroll(0,300)
   }
-  getAll() {
-    this.foodService.getAll().subscribe(data => {
+  getTrashCan() {
+    this.foodService.getAllTrashCan().subscribe(data => {
       console.log(data)
       this.foodList = data
     })
@@ -30,30 +29,28 @@ export class ListComponent implements OnInit {
     this.index = id;
     this.item = name;
   }
-
-
-  delete(id: number): void {
+  restore(id: number): void {
     Swal.fire({
-      title: 'Bạn có muốn xóa?',
+      title: 'Bạn có muốn khôi phục lại món ăn này?',
       text: 'Món ăn: ' + this.item,
       icon: 'question',
       showCancelButton: true,
-      confirmButtonColor: '#d33',
+      confirmButtonColor: '#3085d6',
       cancelButtonColor: '#BBBBBB',
       confirmButtonText: 'Có',
       cancelButtonText: 'Không'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.foodService.delete(id).subscribe(() => {
+        this.foodService.restore(id).subscribe(() => {
           Swal.fire({
             position: 'center',
             icon: 'success',
-            title: 'Xóa thành công ',
+            title: ' Khôi phục thành công ',
             showConfirmButton: false,
-            timer: 2000
+            timer: 1500
           });
           this.index = -1;
-          this.getAll();
+          this.getTrashCan();
         }, error => {
           console.log(error);
         });

@@ -1,0 +1,47 @@
+<form [formGroup]="foodForm" (ngSubmit)="addFood()">
+
+  <div class="row align-items-center py-3">
+    <div class="col-md-3 ps-5">
+      <label for="name" style="font-weight: bold" class="mb-0">ten:<sup
+        style="color: red;font-size: 15px" title="Bắt buộc">*</sup> </label>
+    </div>
+    <div class="col-md-9 pe-5" style="position: relative">
+      <input formControlName="name" required id="name" class="form-control"
+             placeholder="Vui lòng nhập giá (*)">
+    </div>
+  </div>
+
+  <div class="row align-items-center py-3">
+    <div class="col-md-3 ps-5">
+      <label for="image" style="font-weight: bold" class="mb-0">anh:<sup
+        style="color: red;font-size: 15px" title="Bắt buộc">*</sup> </label>
+    </div>
+    <div class="col-md-9 pe-5" style="position: relative">
+      <input formControlName="image" required id="image" class="form-control"
+             placeholder="Vui lòng nhập giá (*)">
+    </div>
+  </div>
+
+  <div class="row align-items-center py-3">
+    <div class="col-md-3 ps-5">
+      <label for="price" style="font-weight: bold" class="mb-0">Giá (VNĐ):<sup
+        style="color: red;font-size: 15px" title="Bắt buộc">*</sup> </label>
+    </div>
+    <div class="col-md-9 pe-5" style="position: relative">
+      <input formControlName="price" required id="price" class="form-control" type="number"
+             placeholder="Vui lòng nhập giá (*)">
+    </div>
+  </div>
+
+  <div class="row align-items-center py-3">
+    <div class="col-md-3 ps-5">
+      <label for="description" style="font-weight: bold" class="mb-0">mo ta:<sup
+        style="color: red;font-size: 15px" title="Bắt buộc">*</sup> </label>
+    </div>
+    <div class="col-md-9 pe-5" style="position: relative">
+      <input formControlName="description" required id="description" class="form-control"
+             placeholder="Vui lòng nhập giá (*)">
+    </div>
+  </div>
+  <button type="submit" class="btn btn-outline-primary m-4 w-25">Thêm mới</button>
+</form>

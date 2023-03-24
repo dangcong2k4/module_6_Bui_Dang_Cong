@@ -14,6 +14,9 @@ import {LogInModule} from "./log-in/log-in.module";
 import { ListComponent } from './food/list/list.component';
 import {FoodModule} from "./food/food.module";
 import {ShareService} from "./service/JWT/share.service";
+import {ReactiveFormsModule} from "@angular/forms";
+import {SignupComponent} from "./signup/signup.component";
+import {SignupModule} from "./signup/signup.module";
 
 @NgModule({
   declarations: [
@@ -23,15 +26,18 @@ import {ShareService} from "./service/JWT/share.service";
     FooterComponent,
     BodyComponent,
     CartComponent,
-    ListComponent
+    ListComponent,
+    SignupComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HomeModule,
-    LogInModule,
-    FoodModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HomeModule,
+        LogInModule,
+        SignupModule,
+        FoodModule,
+        ReactiveFormsModule
+    ],
   providers: [ShareService],
   bootstrap: [AppComponent]
 })

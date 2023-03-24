@@ -1,9 +1,7 @@
 
 <div style="margin-left: 70px;margin-right: 70px">
-  <h1 class="text-center" style="margin: 100px 0 50px">Danh sách món ăn</h1>
-  <div class="text-center">
+  <h1 class="text-center" style="margin: 100px 0 50px">Danh sách món ăn đã bị xóa khỏi cửa hàng</h1>
 
-</div>
   <div style="height: 300px">
 
     <table class="table table-hover">
@@ -26,20 +24,11 @@
       </tbody>
     </table>
   </div>
-  <div class="row" style="margin-bottom: 100px">
-    <div class="col-md-2">
-      <button type="submit" class=" btn btn-secondary" [routerLink]="['/']">Thoát</button>
-    </div>
-    <div class="col-md-8 text-center">
-      <button class="btn btn-primary" routerLink="/create">Thêm mới</button>
-      <button class="btn btn-primary disabled1" style="margin: 0 10px" >Chỉnh sửa</button>
-      <button type="button" class="btn btn-danger disabled1" (click)="delete(index)" [disabled]="index == -1"
-              data-toggle="modal" data-target="#staticBackdrop">Xóa</button>
-    </div>
-    <div class="col-md-2">
-      <button class=" btn btn-primary" style="float: right" routerLink="/trashCan">Thùng rác</button>
-    </div>
+  <div style="margin-bottom: 100px">
+    <button type="submit" class=" btn btn-secondary" [routerLink]="['/food']">Quay lại danh sách</button>
+    <button type="button" class="btn btn-primary disabled1" (click)="restore(index)" [disabled]="index == -1"  data-toggle="modal" data-target="#staticBackdrop">
+      Khôi phục
+    </button>
   </div>
-
 
 </div>

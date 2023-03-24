@@ -33,7 +33,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div style="margin-left: 100px" class="collapse navbar-collapse" id="navbarResponsive">
-      <ul class="navbar-nav ms-1">
+      <ul class="navbar-nav ms-1"  id="kitty-drop">
         <li class="nav-item cart">
           <a style="color: black" class="nav-link" routerLink="/"><i style="color: black" class="fa-solid fa-utensils"></i><p class="hover"> Đồ ăn</p></a>
         </li>
@@ -41,7 +41,12 @@
           <a style="color: black" routerLink="/cart"><i style="color: black" class="fa-solid fa-cart-shopping icon"></i><p class="hover"> Giỏ hàng</p></a>
         </li>
         <li class="nav-item cart">
-          <a style="color: black" class="nav-link"  routerLink="/food"><i style="color: black"  class="fa-solid fa-wrench"></i><p class="hover"> Quản lý</p></a>
+          <a style="color: black" class="nav-link" ><i style="color: black"  class="fa-solid fa-wrench"></i><p class="hover"> Quản lý</p></a>
+          <ul>
+            <li routerLink="/food">Món ăn</li>
+            <li>Nhân viên</li>
+            <li>Quá trình</li>
+          </ul>
         </li>
       </ul>
     </div>
@@ -63,8 +68,9 @@
         <a  *ngIf="isLogged == true" style="margin-left: 50px;cursor: pointer;text-decoration: none;color: #29324e"
             class="dropdown">
           <div id="dropdownMenuButton1" style="margin-top: -23px" data-bs-toggle="dropdown" aria-expanded="false">
-            <img style="width: 40px;height: 40px;border-radius: 50%;border: 1px solid chocolate" src="{{user.avatar}}" alt="Avatar" class="avatar dropdown-toggle"> <span
-            style="text-transform: uppercase;">{{user.name}}</span> </div>
+            <img *ngIf="user.avatar==null" style="width: 40px;height: 40px;border-radius: 50%;border: 1px solid chocolate" src="http://thuthuattienich.com/wp-content/uploads/2017/02/anh-dai-dien-facebook-doc-2.jpg" alt="Avatar" class="avatar dropdown-toggle">
+            <img *ngIf="user.avatar!=null" style="width: 40px;height: 40px;border-radius: 50%;border: 1px solid chocolate" src="{{user.avatar}}" alt="Avatar" class="avatar dropdown-toggle">
+            <span style="text-transform: uppercase;">{{user.name}}</span> </div>
           <div  class=" dropdown-menu" aria-labelledby="dropdownMenuButton1"  style="font-size: 15px">
             <p class="category-item dropdown-item" routerLink="/profile">
               <i class="fa-sharp fa-solid fa-user" style="margin-right: 5px"></i> Thông tin cá nhân</p>
