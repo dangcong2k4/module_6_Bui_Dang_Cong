@@ -16,16 +16,42 @@ public class FoodService implements IFoodService {
 
     @Override
     public Page<Food> findAllFood(Pageable pageable) {
-        return foodRepository.findAll(pageable);
+        return foodRepository.findAllFood(pageable);
     }
 
     @Override
     public Page<Food> showFoodForCustomer(Pageable pageable) {
-        return foodRepository.findAll(pageable);
+        return foodRepository.findAllFood(pageable);
+    }
+
+    @Override
+    public Page<Food> showFoodTrashCan(Pageable pageable) {
+        return foodRepository.showFoodTrashCan(pageable);
+    }
+
+    @Override
+    public void delete(Integer id) {
+        foodRepository.deleteFood(id);
+    }
+
+    @Override
+    public void restore(Integer id) {
+        foodRepository.restoreFood(id);
     }
 
     @Override
     public Food findFood(Integer id) {
         return foodRepository.findFood(id);
     }
+
+    @Override
+    public Food findTrashCanFood(Integer id) {
+        return foodRepository.findTrashCanFood(id);
+    }
+
+    @Override
+    public void addFood(Food food) {
+        foodRepository.save(food);
+    }
+
 }

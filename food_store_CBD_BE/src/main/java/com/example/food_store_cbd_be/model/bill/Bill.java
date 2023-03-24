@@ -62,4 +62,5 @@ public class Bill {
     public void setUser(User user) {
         this.user = user;
     }
+
 }

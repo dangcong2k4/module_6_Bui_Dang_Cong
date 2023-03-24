@@ -2,7 +2,7 @@ package com.example.food_store_cbd_be.service;
 
 import com.example.food_store_cbd_be.model.bill.BillHistory;
 
-public interface IBillService {
+public interface IBillHistoryService {
 
-    void addBill(BillHistory billHistory);
+    void addBillHistory(BillHistory billHistory);
 }

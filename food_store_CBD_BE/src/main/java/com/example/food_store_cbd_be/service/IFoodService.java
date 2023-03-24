@@ -9,5 +9,15 @@ public interface IFoodService {
 
     Page<Food> showFoodForCustomer(Pageable pageable);
 
+    Page<Food> showFoodTrashCan(Pageable pageable);
+
+    void delete(Integer id);
+
+    void restore(Integer id);
+
     Food findFood(Integer id);
+
+    Food findTrashCanFood(Integer id);
+
+    void addFood(Food food);
 }

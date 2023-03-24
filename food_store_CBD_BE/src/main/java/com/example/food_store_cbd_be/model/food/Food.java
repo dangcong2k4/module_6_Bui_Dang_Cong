@@ -16,14 +16,14 @@ public class Food {
     private String image;
     private Double price;
     private String description;
-    private boolean flag_delete;
+    private Boolean flagDelete=false;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "food_size",
             joinColumns = @JoinColumn(name = "food_id"),
             inverseJoinColumns = @JoinColumn(name = "size_id"))
-    @JsonManagedReference
+    @JsonBackReference
     private Set<Size> sizes;
 
 
@@ -72,12 +72,12 @@ public class Food {
         this.description = description;
     }
 
-    public boolean isFlag_delete() {
-        return flag_delete;
+    public boolean isFlagDelete() {
+        return flagDelete;
     }
 
-    public void setFlag_delete(boolean flag_delete) {
-        this.flag_delete = flag_delete;
+    public void setFlagDelete(boolean flagDelete) {
+        this.flagDelete = flagDelete;
     }
 
     public Double getPrice() {

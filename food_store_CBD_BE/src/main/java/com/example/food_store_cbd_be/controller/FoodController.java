@@ -2,6 +2,7 @@ package com.example.food_store_cbd_be.controller;
 
 import com.example.food_store_cbd_be.model.food.Food;
 import com.example.food_store_cbd_be.service.IFoodService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -9,7 +10,11 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 @CrossOrigin("*")
@@ -20,31 +25,67 @@ public class FoodController {
 
     @GetMapping("/list")
     public ResponseEntity<Page<Food>> findAll(
-            @PageableDefault(value = 4) Pageable pageable) {
-        Page<Food> commodityList = foodService.findAllFood(pageable);
-        if (commodityList.isEmpty()) {
+            @PageableDefault(value = 5) Pageable pageable) {
+        Page<Food> foods = foodService.findAllFood(pageable);
+        if (foods.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(commodityList, HttpStatus.OK);
+        return new ResponseEntity<>(foods, HttpStatus.OK);
     }
+    @GetMapping("/TrashCan")
+    public ResponseEntity<Page<Food>> showFoodTrashCan(
+            @PageableDefault(value = 5) Pageable pageable) {
+        Page<Food> foods = foodService.showFoodTrashCan(pageable);
+        if (foods.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(foods, HttpStatus.OK);
+    }
+
     @GetMapping("/show")
     public ResponseEntity<Page<Food>> showList(
             @PageableDefault(value = 16) Pageable pageable) {
-        Page<Food> commodityList = foodService.findAllFood(pageable);
+        Page<Food> commodityList = foodService.showFoodForCustomer(pageable);
         if (commodityList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(commodityList, HttpStatus.OK);
     }
 
-
-
-    @GetMapping("/{id}")
+    @GetMapping("detail/{id}")
     public ResponseEntity<Food> findById(@PathVariable("id") Integer id) {
         Food food = foodService.findFood(id);
         if (food == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(food, HttpStatus.OK);
+    }
+
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Food> deleteFood(@PathVariable("id") Integer id) {
+        Food food = foodService.findFood(id);
+        if (food == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        foodService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/restore/{id}")
+    public ResponseEntity<Food> restoreFood(@PathVariable("id") Integer id) {
+        Food food = foodService.findTrashCanFood(id);
+        if (food == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        foodService.restore(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
+    @PostMapping("/create")
+    public ResponseEntity<?> createCommodity(@RequestBody  Food food, BindingResult bindingResult) {
+        foodService.addFood(food);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
