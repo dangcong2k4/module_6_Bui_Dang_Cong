@@ -16,6 +16,7 @@ public class BillHistory implements Serializable {
     @ManyToOne
     private Food food;
     private Integer quantity;
+    private String size;
 
     public Bill getBill() {
         return bill;
@@ -39,5 +40,13 @@ public class BillHistory implements Serializable {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
     }
 }

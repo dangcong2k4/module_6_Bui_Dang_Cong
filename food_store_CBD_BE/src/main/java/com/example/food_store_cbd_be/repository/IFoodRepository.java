@@ -32,6 +32,15 @@ public interface IFoodRepository extends JpaRepository<Food, Integer > {
             "where flag_delete = false order by id desc ",
             nativeQuery = true)
     Page<Food> findAllFood(Pageable pageable);
+//tìm kiếm theo tên
+    @Query(value = "select * from food " +
+            "where commodity.name like concat('%', :name, '%') and flag_delete = false  order by id desc ",
+            nativeQuery = true)
+    Page<Food> searchNameFood(Pageable pageable, @Param("name") String name);
+    @Query(value = "select * from food " +
+            "where food.price <= :price and flag_delete = false  order by price desc ",
+            nativeQuery = true)
+    Page<Food> searchPriceFood(Pageable pageable, @Param("price") int price);
 
 
 //    hiện thị danh sách món ăn trong thùng rác

@@ -20,4 +20,6 @@ public interface IFoodService {
     Food findTrashCanFood(Integer id);
 
     void addFood(Food food);
+
+    void editFood(Food food);
 }

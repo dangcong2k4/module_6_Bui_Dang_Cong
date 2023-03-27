@@ -1,7 +1,6 @@
 package com.example.food_store_cbd_be.service.impl;
 
 import com.example.food_store_cbd_be.model.bill.Bill;
-import com.example.food_store_cbd_be.model.bill.BillDTO;
 import com.example.food_store_cbd_be.repository.IBillRepository;
 import com.example.food_store_cbd_be.service.IBillService;
 import org.springframework.beans.factory.annotation.Autowired;

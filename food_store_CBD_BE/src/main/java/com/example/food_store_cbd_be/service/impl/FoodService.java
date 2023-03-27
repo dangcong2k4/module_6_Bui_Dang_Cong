@@ -54,4 +54,9 @@ public class FoodService implements IFoodService {
         foodRepository.save(food);
     }
 
+    @Override
+    public void editFood(Food food) {
+        foodRepository.save(food);
+    }
+
 }

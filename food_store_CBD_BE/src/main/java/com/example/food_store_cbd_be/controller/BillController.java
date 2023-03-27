@@ -1,7 +1,7 @@
 package com.example.food_store_cbd_be.controller;
 
 import com.example.food_store_cbd_be.model.bill.Bill;
-import com.example.food_store_cbd_be.model.bill.BillDTO;
+import com.example.food_store_cbd_be.dto.BillDTO;
 import com.example.food_store_cbd_be.model.bill.PaymentMethod;
 import com.example.food_store_cbd_be.model.user.User;
 import com.example.food_store_cbd_be.service.IBillService;
@@ -15,7 +15,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @CrossOrigin("*")

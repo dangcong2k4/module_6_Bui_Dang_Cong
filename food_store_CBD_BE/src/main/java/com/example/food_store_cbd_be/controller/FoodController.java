@@ -1,5 +1,6 @@
 package com.example.food_store_cbd_be.controller;
 
+import com.example.food_store_cbd_be.dto.FoodDto;
 import com.example.food_store_cbd_be.model.food.Food;
 import com.example.food_store_cbd_be.service.IFoodService;
 import org.springframework.beans.BeanUtils;
@@ -84,8 +85,15 @@ public class FoodController {
 
 
     @PostMapping("/create")
-    public ResponseEntity<?> createCommodity(@RequestBody  Food food, BindingResult bindingResult) {
+    public ResponseEntity<?> createFood(@RequestBody  Food food, BindingResult bindingResult) {
         foodService.addFood(food);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+    @PutMapping("/edit/{id}")
+    public ResponseEntity<?> editFood(@RequestBody @Validated FoodDto foodDto, BindingResult bindingResult, @PathVariable("id") Integer id) {
+        Food food = foodService.findFood(id);
+        BeanUtils.copyProperties(foodDto, food);
+        foodService.editFood(food);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
