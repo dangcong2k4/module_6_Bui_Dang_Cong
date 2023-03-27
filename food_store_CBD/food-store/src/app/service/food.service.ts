@@ -34,4 +34,8 @@ export class FoodService {
   addFood(food): Observable<any> {
     return this.httpClient.post("http://localhost:8080/food/create", food);
   }
+
+  editFood(id, food): Observable<any> {
+    return this.httpClient.put<any>("http://localhost:8080/food/edit/" + id, food);
+  }
 }

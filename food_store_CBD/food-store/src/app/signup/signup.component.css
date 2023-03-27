@@ -21,7 +21,7 @@ body {
   -o-object-fit: cover;
   object-fit: cover; }
 .login-card .card-body {
-  padding: 85px 60px 60px; }
+  padding: 50px 60px 30px; }
 @media (max-width: 422px) {
   .login-card .card-body {
     padding: 35px 24px; } }
@@ -80,11 +80,11 @@ body {
 
 /*# sourceMappingURL=login.css.map */
 .background {
-  background: #DE6262;  /* fallback for old browsers */
+  background: #FF9966;  /* fallback for old browsers */
   background: -webkit-linear-gradient(to bottom, beige, darkgrey);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to bottom, #FEB58A, #ff665c);
+  background: linear-gradient(to bottom, #FFCC00, #FF9966);
 }
-.btn-login{background: #E36262; color:#fff; font-weight:600;}
+.btn-login{background: #FF9966; color:#fff; font-weight:600;}
 /*----------------------------------------------------------------------------*/
 /*----------------------------------------------------------------------------*/
 /*----------------------------------------------------------------------------*/

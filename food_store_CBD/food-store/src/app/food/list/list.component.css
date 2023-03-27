@@ -1,6 +1,10 @@
 .choose{
   background-color: gray;
+  color: white;
 }
 .choose:hover{
   background-color: gray;
+}
+.widthBtn{
+  width: 120px;
 }

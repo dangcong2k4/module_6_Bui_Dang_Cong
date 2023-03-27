@@ -1,8 +1,9 @@
-<form [formGroup]="foodForm" (ngSubmit)="addFood()">
+<div style="margin: 50px 200px; border-radius: 1px">
+<form [formGroup]="foodForm">
 
   <div class="row align-items-center py-3">
     <div class="col-md-3 ps-5">
-      <label for="name" style="font-weight: bold" class="mb-0">ten:<sup
+      <label for="name" style="font-weight: bold" class="mb-0">Tên:<sup
         style="color: red;font-size: 15px" title="Bắt buộc">*</sup> </label>
     </div>
     <div class="col-md-9 pe-5" style="position: relative">
@@ -13,13 +14,22 @@
 
   <div class="row align-items-center py-3">
     <div class="col-md-3 ps-5">
-      <label for="image" style="font-weight: bold" class="mb-0">anh:<sup
+      <label for="image" style="font-weight: bold" class="mb-0">Hình ảnh:<sup
         style="color: red;font-size: 15px" title="Bắt buộc">*</sup> </label>
     </div>
-    <div class="col-md-9 pe-5" style="position: relative">
-      <input formControlName="image" required id="image" class="form-control"
-             placeholder="Vui lòng nhập giá (*)">
+    <div class="col-md-9 pe-5">
+      <input accept=".jpg, .png, .jpeg, .gif, .pdf" (change)="showPreview($event)" required
+             id="image"
+             class="form-control-file" type="file"/>
     </div>
+    <div class="col-md-9 pe-5" style="position: relative;margin-left: 150px">
+      <input style="display: none" type="text" readonly formControlName="image" class="form-control">
+    </div>
+    <div style="margin-left: 300px" class="col-md-9 pe-5">
+      <img [src]="fb" style="width: 150px">
+    </div>
+
+
   </div>
 
   <div class="row align-items-center py-3">
@@ -35,7 +45,7 @@
 
   <div class="row align-items-center py-3">
     <div class="col-md-3 ps-5">
-      <label for="description" style="font-weight: bold" class="mb-0">mo ta:<sup
+      <label for="description" style="font-weight: bold" class="mb-0">Mô tả:<sup
         style="color: red;font-size: 15px" title="Bắt buộc">*</sup> </label>
     </div>
     <div class="col-md-9 pe-5" style="position: relative">
@@ -43,5 +53,9 @@
              placeholder="Vui lòng nhập giá (*)">
     </div>
   </div>
-  <button type="submit" class="btn btn-outline-primary m-4 w-25">Thêm mới</button>
+  <div class="text-center">
+    <button type="submit" class="btn btn-primary m-4 widthBtn" (click)="addFood()">Thêm mới</button>
+    <button type="submit" class="btn btn-danger m-4 widthBtn" (click)="cancel()">Hủy</button>
+  </div>
 </form>
+</div>

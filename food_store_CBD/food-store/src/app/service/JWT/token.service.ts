@@ -81,7 +81,7 @@ export class TokenService {
       title: 'them vao gio thành công!',
       text: 'Ban da them san pham ' + cart.name + ' vao gio hang',
       showConfirmButton: false,
-      timer: 2000
+      timer: 1000
     });
   }
 

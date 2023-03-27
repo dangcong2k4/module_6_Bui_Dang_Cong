@@ -29,7 +29,6 @@ export class SignupComponent implements OnInit {
 
   ngOnInit(): void {
     this.title.setTitle('Trang đăng kí')
-    window.scrollTo(0, 300);
   }
   register() {
     this.nameError = '';

@@ -1,50 +1,63 @@
-<div class="background">
+<div class="background" style="height: 700px">
 
 <main class="d-flex align-items-center">
-  <div class="container" style="width: 500px">
+  <div class="container" style="width: 600px;margin-top: 50px; margin-bottom: 100px">
     <div class="card login-card">
 <!--      <div class="row no-gutters">-->
 <!--        <div class="col-md-5">-->
 <!--          <img src="https://png.pngtree.com/thumb_back/fw800/background/20190221/ourmid/pngtree-bribe-mobile-phone-discount-ad-image_40411.jpg" alt="login" class="login-card-img">-->
 <!--        </div>-->
-        <div class="col-md-7">
+
           <div class="card-body">
-            <div class="brand-wrapper">
-<!--              <img src="assets/images/logo.svg" alt="logo" class="logo">-->
+            <div class="text-center">
+              <p class="login-card-description" style="font-size: 30px;font-weight: bold">Tạo tài khoản</p>
             </div>
-            <p class="login-card-description" style="font-size: 30px;font-weight: bold">Tạo tài khoản</p>
+
             <form [formGroup]="registerForm" (ngSubmit)="register()">
-              <div class="form-group">
-                <label for="username" class="sr-only">Tên đăng nhập</label>
-                <input type="text" placeholder="Tên đăng nhập" formControlName="username" name="username" id="username" class="form-control" style="height: 30px" >
+
+              <div class="form-outline">
+                <input type="text" formControlName="username"
+                       name="username" id="username" class="form-control form-control-lg" style="height: 30px;width: 430px" >
+                <label for="username" class="form-label"><b>Tên đăng nhập</b></label>
                 <span class="text-danger">{{usernameError}}</span>
               </div>
-              <div class="form-group">
-                <label for="name" class="sr-only">Họ và tên</label>
-                <input type="text" placeholder="Họ và tên" formControlName="name" name="name" id="name" class="form-control"  style="height: 30px">
+
+              <div class="form-outline">
+                <input type="text" formControlName="name"
+                       name="name" id="name" class="form-control"  style="height: 30px;width: 430px">
+                <label for="name" class="form-label"><b>Họ và tên</b></label>
                 <span class="text-danger">{{nameError}}</span>
               </div>
-              <div class="form-group">
-                <label for="email" class="sr-only">Email</label>
-                <input type="email" placeholder="Email" formControlName="email" name="email" id="email" class="form-control"  style="height: 30px">
+
+              <div class="form-outline">
+                <input type="email" formControlName="email"
+                       name="email" id="email" class="form-control"  style="height: 30px;width: 430px">
+                <label for="email" class="form-label"><b>Email</b></label>
                 <span class="text-danger">{{emailError}}</span>
               </div>
-              <div class="form-group mb-4">
-                <label for="password" class="sr-only">Mật khẩu</label>
-                <input type="password" placeholder="Mật khẩu" formControlName="password" name="password" id="password" class="form-control"  style="height: 30px">
+
+              <div class="form-outline">
+                <input type="password" formControlName="password"
+                       name="password" id="password" class="form-control"  style="height: 30px;width: 430px">
+                <label for="password" class="form-label"><b>Mật khẩu</b></label>
                 <span class="text-danger">{{passwordError}}</span>
               </div>
-              <div class="form-group mb-4">
-                <label for="confirmPassword" class="sr-only">Mật khẩu xác nhận</label>
-                <input type="password" placeholder="Mật khẩu xác nhận" formControlName="confirmPassword" name="confirmPassword" id="confirmPassword" class="form-control"  style="height: 30px">
+
+              <div class="form-outline">
+                <input type="password" formControlName="confirmPassword"
+                       name="confirmPassword" id="confirmPassword" class="form-control"  style="height: 30px;width: 430px">
+                <label for="confirmPassword" class="form-label"><b>Mật khẩu xác nhận</b></label>
                 <span class="text-danger">{{confirmPasswordError}}</span>
               </div>
-              <input name="login" id="login" class="btn btn-block  mb-4 btn-login" type="submit" value="Đăng kí">
+              <div class="text-center" style="width: 430px">
+                <input name="login" id="login" class="btn btn-block  mb-4 btn-login" style="width: 50%" type="submit" value="Đăng kí">
+              </div>
+
             </form>
           </div>
-        </div>
       </div>
     </div>
 <!--  </div>-->
+
 </main>
 </div>

@@ -10,7 +10,7 @@
       <thead>
       <tr class="bg-info" style="color: white">
         <th scope="col" style="width: 100px">STT</th>
-        <th scope="col" style="width: 200px">Tên hàng hoá</th>
+        <th scope="col" style="width: 200px">Tên món ăn</th>
         <th scope="col" style="width: 150px">Giá(VND)</th>
         <th scope="col" style="width: 500px">Mô tả món ăn</th>
       </tr>
@@ -28,16 +28,16 @@
   </div>
   <div class="row" style="margin-bottom: 100px">
     <div class="col-md-2">
-      <button type="submit" class=" btn btn-secondary" [routerLink]="['/']">Thoát</button>
+      <button type="submit" class=" btn btn-secondary widthBtn" [routerLink]="['/']">Thoát</button>
     </div>
     <div class="col-md-8 text-center">
-      <button class="btn btn-primary" routerLink="/create">Thêm mới</button>
-      <button class="btn btn-primary disabled1" style="margin: 0 10px" >Chỉnh sửa</button>
-      <button type="button" class="btn btn-danger disabled1" (click)="delete(index)" [disabled]="index == -1"
+      <button class="btn btn-primary widthBtn" routerLink="/create">Thêm mới</button>
+      <button class="btn btn-primary disabled1 widthBtn" style="margin: 0 10px"   [disabled]="index == -1" [routerLink]="['/edit',index]">Chỉnh sửa</button>
+      <button type="button" class="btn btn-danger disabled1 widthBtn" (click)="delete(index)" [disabled]="index == -1"
               data-toggle="modal" data-target="#staticBackdrop">Xóa</button>
     </div>
     <div class="col-md-2">
-      <button class=" btn btn-primary" style="float: right" routerLink="/trashCan">Thùng rác</button>
+      <button class=" btn btn-primary widthBtn" style="float: right" routerLink="/trashCan">Thùng rác</button>
     </div>
   </div>
 

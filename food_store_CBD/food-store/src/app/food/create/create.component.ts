@@ -3,6 +3,9 @@ import {Router} from "@angular/router";
 import {FoodService} from "../../service/food.service";
 import {FormControl, FormGroup} from "@angular/forms";
 import Swal from "sweetalert2";
+import {Observable} from "rxjs";
+import {AngularFireStorage} from "@angular/fire/storage";
+import {finalize} from "rxjs/operators";
 
 @Component({
   selector: 'app-create',
@@ -11,7 +14,12 @@ import Swal from "sweetalert2";
 })
 export class CreateComponent implements OnInit {
   foodForm: FormGroup;
-  constructor(private router:Router,private foodService:FoodService) {
+  selectedImage: any = null;
+  url: any;
+  downloadURL: Observable<string> | undefined;
+  fb: string | undefined;
+  src: string | undefined;
+  constructor(private router:Router,private foodService:FoodService, private storage: AngularFireStorage) {
     this.foodForm = new FormGroup({
       name : new FormControl(''),
       image : new  FormControl(''),
@@ -25,6 +33,7 @@ export class CreateComponent implements OnInit {
   addFood(){
     if(this.foodForm.valid){
       this.foodService.addFood(this.foodForm.value).subscribe(next=>{
+        this.router.navigateByUrl('/food')
         Swal.fire({
           position: 'center',
           title: 'Thêm mới thành công',
@@ -32,6 +41,7 @@ export class CreateComponent implements OnInit {
           showConfirmButton: false,
           timer: 2000
         });
+
       }, error => {
         Swal.fire({
           position: 'center',
@@ -52,5 +62,46 @@ export class CreateComponent implements OnInit {
         timer: 2000
       });
     }
+  }
+  showPreview(event: any) {
+    this.selectedImage = event.target.files[0];
+    const filePath = this.selectedImage.name;
+    const fileRef = this.storage.ref(filePath);
+    const task = this.storage.upload(filePath, this.selectedImage);
+    task
+      .snapshotChanges()
+      .pipe(
+        finalize(() => {
+          this.downloadURL = fileRef.getDownloadURL();
+          this.downloadURL.subscribe(url => {
+            if (url) {
+              // lấy lại url
+              this.fb = url;
+            }
+            this.foodForm.patchValue({image: url});
+            this.src = url;
+            console.log('link: ', this.fb);
+            this.src = url;
+            // console.log('link: ', this.fb);
+          });
+        })
+      )
+      .subscribe();
+  }
+
+  cancel() {
+    Swal.fire({
+      title: 'Bạn có muốn thoát khỏi trang chỉnh sửa?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#BBBBBB',
+      confirmButtonText: 'Có',
+      cancelButtonText: 'Không'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.router.navigateByUrl("/food")
+      }
+    });
   }
 }

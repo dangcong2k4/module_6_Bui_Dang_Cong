@@ -1,0 +1,62 @@
+<div style="margin: 50px 200px; border-radius: 1px">
+<form [formGroup]="foodForm" >
+  <input id="id" class="form-control" type="hidden" formControlName="id">
+  <div class="row align-items-center py-3">
+    <div class="col-md-3 ps-5">
+      <label for="name" style="font-weight: bold" class="mb-0">Tên:<sup
+        style="color: red;font-size: 15px" title="Bắt buộc">*</sup> </label>
+    </div>
+    <div class="col-md-9 pe-5" style="position: relative">
+      <input formControlName="name" required id="name" class="form-control"
+             placeholder="Vui lòng nhập giá (*)">
+    </div>
+  </div>
+
+  <div class="row align-items-center py-3">
+    <div class="col-md-3 ps-5">
+      <label for="image" style="font-weight: bold" class="mb-0">Hình ảnh:<sup
+        style="color: red;font-size: 15px" title="Bắt buộc">*</sup> </label>
+    </div>
+    <div class="col-md-9 pe-5">
+      <input accept=".jpg, .png, .jpeg, .gif, .pdf" (change)="showPreview($event)" required
+             id="image"
+             class="form-control-file" type="file"/>
+    </div>
+    <div class="col-md-9 pe-5" style="position: relative;margin-left: 150px">
+      <input  type="text" style="display: none" readonly formControlName="image" class="form-control">
+    </div>
+    <div style="margin-left: 300px" class="col-md-9 pe-5">
+      <img [src]="food.image" style="width: 150px">
+    </div>
+
+
+  </div>
+
+  <div class="row align-items-center py-3">
+    <div class="col-md-3 ps-5">
+      <label for="price" style="font-weight: bold" class="mb-0">Giá (VNĐ):<sup
+        style="color: red;font-size: 15px" title="Bắt buộc">*</sup> </label>
+    </div>
+    <div class="col-md-9 pe-5" style="position: relative">
+      <input formControlName="price" required id="price" class="form-control" type="number"
+             placeholder="Vui lòng nhập giá (*)">
+    </div>
+  </div>
+
+  <div class="row align-items-center py-3">
+    <div class="col-md-3 ps-5">
+      <label for="description" style="font-weight: bold" class="mb-0">Mô tả:<sup
+        style="color: red;font-size: 15px" title="Bắt buộc">*</sup> </label>
+    </div>
+    <div class="col-md-9 pe-5" style="position: relative">
+      <input formControlName="description" required id="description" class="form-control"
+             placeholder="Vui lòng nhập giá (*)">
+    </div>
+  </div>
+  <div class="text-center">
+    <button type="submit" class="btn btn-primary m-4 widthBtn" (click)="editFood()">Chỉnh sửa</button>
+    <button type="submit" class="btn btn-danger m-4 widthBtn" (click)="cancel()">Hủy</button>
+  </div>
+
+</form>
+</div>

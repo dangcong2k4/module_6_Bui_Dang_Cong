@@ -26,6 +26,7 @@ export class ListComponent implements OnInit {
       this.foodList = data
     })
   }
+
   choice(id: number, name: string) {
     this.index = id;
     this.item = name;

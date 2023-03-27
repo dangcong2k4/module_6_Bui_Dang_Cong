@@ -6,10 +6,11 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import { TrashCanComponent } from './trash-can/trash-can.component';
 import { CreateComponent } from './create/create.component';
+import { EditComponent } from './edit/edit.component';
 
 
 @NgModule({
-  declarations: [TrashCanComponent, CreateComponent],
+  declarations: [TrashCanComponent, CreateComponent, EditComponent],
   imports: [
     CommonModule,
     FoodRoutingModule,
