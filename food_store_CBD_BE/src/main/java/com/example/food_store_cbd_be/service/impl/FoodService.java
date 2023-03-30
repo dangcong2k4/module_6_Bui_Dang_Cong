@@ -1,5 +1,7 @@
 package com.example.food_store_cbd_be.service.impl;
 
+import com.example.food_store_cbd_be.dto.FoodDtoSearch;
+import com.example.food_store_cbd_be.dto.IFoodDto;
 import com.example.food_store_cbd_be.model.food.Food;
 import com.example.food_store_cbd_be.repository.IFoodRepository;
 import com.example.food_store_cbd_be.service.IFoodService;
@@ -19,13 +21,14 @@ public class FoodService implements IFoodService {
         return foodRepository.findAllFood(pageable);
     }
 
+
     @Override
     public Page<Food> showFoodForCustomer(Pageable pageable) {
         return foodRepository.findAllFood(pageable);
     }
 
     @Override
-    public Page<Food> showFoodTrashCan(Pageable pageable) {
+    public Page<IFoodDto> showFoodTrashCan(Pageable pageable) {
         return foodRepository.showFoodTrashCan(pageable);
     }
 
@@ -57,6 +60,11 @@ public class FoodService implements IFoodService {
     @Override
     public void editFood(Food food) {
         foodRepository.save(food);
+    }
+
+    @Override
+    public Page<IFoodDto> findByAllSearch(FoodDtoSearch foodDtoSearch, Pageable pageable) {
+        return foodRepository.findByAllSearch(foodDtoSearch,pageable);
     }
 
 }

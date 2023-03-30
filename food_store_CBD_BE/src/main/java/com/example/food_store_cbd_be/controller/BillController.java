@@ -28,7 +28,7 @@ public class BillController {
     private IUserService userService;
 
     @PostMapping("/create")
-    public ResponseEntity<?> createCommodity(@RequestBody BillDTO billDTO, BindingResult bindingResult) {
+    public ResponseEntity<?> createCommodity(@RequestBody BillDTO billDTO) {
         System.out.println(billDTO);
         Bill bill = new Bill();
         User user = userService.findById(billDTO.getUser());

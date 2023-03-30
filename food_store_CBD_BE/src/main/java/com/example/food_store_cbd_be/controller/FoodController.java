@@ -1,6 +1,8 @@
 package com.example.food_store_cbd_be.controller;
 
 import com.example.food_store_cbd_be.dto.FoodDto;
+import com.example.food_store_cbd_be.dto.FoodDtoSearch;
+import com.example.food_store_cbd_be.dto.IFoodDto;
 import com.example.food_store_cbd_be.model.food.Food;
 import com.example.food_store_cbd_be.service.IFoodService;
 import org.springframework.beans.BeanUtils;
@@ -33,10 +35,12 @@ public class FoodController {
         }
         return new ResponseEntity<>(foods, HttpStatus.OK);
     }
+
+
     @GetMapping("/TrashCan")
-    public ResponseEntity<Page<Food>> showFoodTrashCan(
+    public ResponseEntity<Page<IFoodDto>> showFoodTrashCan(
             @PageableDefault(value = 5) Pageable pageable) {
-        Page<Food> foods = foodService.showFoodTrashCan(pageable);
+        Page<IFoodDto> foods = foodService.showFoodTrashCan(pageable);
         if (foods.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -96,4 +100,17 @@ public class FoodController {
         foodService.editFood(food);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+
+    @PostMapping("/search")
+    public ResponseEntity<Page<IFoodDto>> findByAllSearch(
+            @RequestBody FoodDtoSearch foodDtoSearch ,
+            @PageableDefault(value = 5) Pageable pageable){
+        Page<IFoodDto> foodDtos = foodService.findByAllSearch(foodDtoSearch,pageable);
+        if (foodDtos.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(foodDtos,HttpStatus.OK);
+    }
+
 }
