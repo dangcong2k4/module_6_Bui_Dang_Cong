@@ -1,12 +1,36 @@
 
 <div style="margin-left: 70px;margin-right: 70px">
-  <h1 class="text-center" style="margin: 100px 0 50px">Danh sách món ăn</h1>
-  <div class="text-center">
+  <h1 class="text-center" style="margin: 60px 0 50px">Danh sách món ăn</h1>
+  <div class="row" style="margin: 0 0 10px">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <form *ngIf="rfSearch" [formGroup]="rfSearch" (ngSubmit)="findByAllFood(0)">
+        <div class="row">
+          <div class="col-md-6">
+            <select #select (change)="setSearch(select.value)" class="form-control" style="width: 300px;margin-left: auto">
+              <option [value]="'0,2000000'" value="">Tất cả món ăn</option>
+              <option [value]="'0,20000'" value="">0đ - 20000đ</option>
+              <option [value]="'20000,30000'">20000đ - 30000đ</option>
+              <option [value]="'30000,40000'">30000đ - 40000đ</option>
+              <option [value]="'40000,2000000003000'">> 40000đ</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+              <input style="display: inline; width: 300px" formControlName="name" class="form-control" placeholder="tìm kiếm theo tên món ăn">
+              <button class="btn btn-info" style="display: inline;margin-top: -5px"><i class="fas fa-search"></i></button>
+          </div>
+        </div>
+      </form>
+    </div>
+      <div class="col-md-2"></div>
+  </div>
+  <div *ngIf="pageFood == null" style="height: 500px" class="text-center">
+    <img src="https://i.imgur.com/X61fAYt.png" alt="">
+    <h1 class="text-center" style="margin: 30px 0 30px">Không tìm thấy kết quả mà bạn cần tìm</h1>
+  </div>
 
-</div>
-  <div style="height: 300px">
-
-    <table class="table table-hover">
+  <div *ngIf="pageFood !== null" style="height: 300px">
+    <table class="table table-hover" >
       <thead>
       <tr class="bg-info" style="color: white">
         <th scope="col" style="width: 100px">STT</th>
@@ -15,18 +39,23 @@
         <th scope="col" style="width: 500px">Mô tả món ăn</th>
       </tr>
       </thead>
-
       <tbody>
-      <tr  [class.choose]="food.id == index" (click)="choice(food.id,food.name)"  style="cursor: pointer"  *ngFor="let food of foodList['content'], index as i">
-        <td>{{i + 1 + foodList.number * foodList.size}}</td>
+      <tr style="cursor: pointer" [class.choose]="food.id == index" (click)="choice(food.id,food.name)"
+           *ngFor="let food of pageFood['content'] index as i">
+        <td>{{i + 1 + pageFood.number * pageFood.size}}</td>
         <td>{{food.name}}</td>
         <td>{{food.price | currency: 'VND': 'symbol'}}</td>
         <td>{{food.description}}</td>
       </tr>
       </tbody>
     </table>
+
+    <div class="text-center" >
+      <button *ngIf="index!=-1" type="button" class="btn btn-secondary disabled1 widthBtn" (click)="cancel()">Hủy</button>
+    </div>
   </div>
-  <div class="row" style="margin-bottom: 100px">
+<div  *ngIf="pageFood !== null">
+  <div class="row" style="margin-bottom: 20px">
     <div class="col-md-2">
       <button type="submit" class=" btn btn-secondary widthBtn" [routerLink]="['/']">Thoát</button>
     </div>
@@ -41,5 +70,39 @@
     </div>
   </div>
 
+  <div class="col-12" style="margin-bottom: 80px">
+    <nav>
+      <ul class="pagination justify-content-center">
+        <li class="page-item"><a class="page-link"
+                                 [ngClass]="pageFood?.first ? 'disabled': ''"
+                                 (click)="gotoPage(0)"> << </a></li>
+        <li class="page-item" *ngIf="pageFood.number - 2 > 0">
+          <a class="page-link" (click)="gotoPage(pageFood.number - 3)">{{pageFood.number - 2}}</a>
+        </li>
+        <li class="page-item" *ngIf="pageFood.number - 1 > 0">
+          <a class="page-link" (click)="gotoPage(pageFood.number - 2)">{{pageFood.number - 1}}</a>
+        </li>
+        <li class="page-item" *ngIf="pageFood.number > 0">
+          <a class="page-link" (click)="gotoPage(pageFood.number   - 1)">{{pageFood.number}}</a>
+        </li>
+        <li class="page-item active"><a class="page-link">{{pageFood.number + 1}}</a></li>
 
+        <li class="page-item" *ngIf="pageFood.number + 2 <= pageFood.totalPages">
+          <a class="page-link" (click)="gotoPage(pageFood.number + 1)">{{pageFood.number + 2}}</a>
+        </li>
+        <li class="page-item" *ngIf="pageFood.number + 3 <= pageFood.totalPages">
+          <a class="page-link" (click)="gotoPage(pageFood.number + 2)">{{pageFood.number + 3}}</a>
+        </li>
+        <li class="page-item" *ngIf="pageFood.number + 4 <= pageFood.totalPages">
+          <a class="page-link" (click)="gotoPage(pageFood.number + 3)">{{pageFood.number + 4}}</a>
+        </li>
+        <li class="page-item"><a class="page-link"
+                                 [ngClass]="pageFood.last ? 'disabled': ''"
+                                 (click)="gotoPage(pageFood.totalPages - 1)"> >> </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+</div>
 </div>

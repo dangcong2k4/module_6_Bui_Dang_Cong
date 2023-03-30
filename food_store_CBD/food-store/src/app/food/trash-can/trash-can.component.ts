@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FoodService} from "../../service/food.service";
 import {Router} from "@angular/router";
 import Swal from "sweetalert2";
+import {PageFood} from "../../model/pageFood";
 
 @Component({
   selector: 'app-trash-can',
@@ -9,22 +10,29 @@ import Swal from "sweetalert2";
   styleUrls: ['./trash-can.component.css']
 })
 export class TrashCanComponent implements OnInit {
-  foodList
+  pageFood: PageFood;
   item: string;
   index = -1;
   constructor(private foodService:FoodService, private router:Router) {
-    this.getTrashCan()
+    // this.getTrashCan()
   }
 
   ngOnInit(): void {
+    this.getTrashCan(0);
     window.scroll(0,300)
   }
-  getTrashCan() {
-    this.foodService.getAllTrashCan().subscribe(data => {
-      console.log(data)
-      this.foodList = data
-    })
+
+  getTrashCan(pageNumber: number) {
+    this.foodService.getAllTrashCan(pageNumber).subscribe(data => {
+      console.log('data' + data)
+      this.pageFood = data
+    }
+    )
   }
+  gotoPage(pageNumber: number) {
+    this.getTrashCan(pageNumber);
+  }
+
   choice(id: number, name: string) {
     this.index = id;
     this.item = name;
@@ -50,7 +58,7 @@ export class TrashCanComponent implements OnInit {
             timer: 1500
           });
           this.index = -1;
-          this.getTrashCan();
+          this.getTrashCan(0);
         }, error => {
           console.log(error);
         });

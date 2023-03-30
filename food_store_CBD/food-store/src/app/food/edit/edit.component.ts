@@ -31,7 +31,7 @@ export class EditComponent implements OnInit {
     });
     this.foodService.findCommodityById(this.activatedRoute.snapshot.paramMap.get("id")).subscribe(next => {
       console.log(this.foodForm.patchValue(next));
-      console.log(next);
+      console.log(this.activatedRoute.snapshot.paramMap.get("id"));
       this.food = next;
     });
   }

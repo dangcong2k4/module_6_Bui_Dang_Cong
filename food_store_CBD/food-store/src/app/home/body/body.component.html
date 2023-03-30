@@ -1,14 +1,12 @@
-<div>
 
-</div>
   <div class="col-lg-3 sticky-top2"  style="margin-bottom: 335px">
-    <img src="https://i.imgur.com/FPbWYHe.jpg" style="width: 345px;height: 670px" alt="">
+    <img src="https://i.imgur.com/FPbWYHe.jpg" style="width: 345px;height: 670px" >
   </div>
-  <div class="col-lg-8" style="margin-left: 400px;margin-top: -1050px">
+  <div class="col-lg-8" style="margin-left: 450px;margin-top: -1050px">
     <section class="section">
       <div class="grid">
         <article class="card" style="margin-top: 100px" *ngFor="let food of foodList['content'], index as i">
-          <img class="card__image" src="{{food.image}}" style="margin-right: 7px"/>
+          <img class="card__image" src="{{food.image}}" (click)="showDetail(food.id)" style="margin-right: 7px"/>
           <div class="card__data">
             <div class="card__info">
               <h2>{{food.name}}</h2>
@@ -21,114 +19,6 @@
       </div>
     </section>
   </div>
-<!--  <div class="col-lg-1"></div>-->
 
-
-
-<!--    <section class="section">-->
-
-<!--    <div class="grid" >-->
-<!--      <article class="card">-->
-<!--        <img class="card__image" src="https://i.imgur.com/llsxyZl.png"/>-->
-<!--        <div class="card__data">-->
-<!--          <div class="card__info">-->
-<!--            <h2>Nombre Comida</h2>-->
-<!--            <p>Descripcion de la comida, con ingredientes</p>-->
-<!--          </div>-->
-<!--          <h3 class="card__price">$7.50</h3>-->
-<!--          <button class="card__add">+</button>-->
-<!--        </div>-->
-<!--      </article>-->
-<!--      <article class="card">-->
-<!--        <img class="card__image" src="https://i.ibb.co/JpwBtYk/food2.png"/>-->
-<!--        <div class="card__data">-->
-<!--          <div class="card__info">-->
-<!--            <h2>Nombre Comida</h2>-->
-<!--            <p>Descripcion de la comida, con ingredientes</p>-->
-<!--          </div>-->
-<!--          <h3 class="card__price">$7.50</h3>-->
-<!--          <button class="card__add">+</button>-->
-<!--        </div>-->
-<!--      </article>-->
-
-<!--      <article class="card">-->
-<!--        <img class="card__image" style="height: 215px;width: 215px" src="https://i.imgur.com/LXIQTx1.png"/>-->
-<!--        <div class="card__data">-->
-<!--          <div class="card__info">-->
-<!--            <h2>Nombre Comida</h2>-->
-<!--            <p>Descripcion de la comida, con ingredientes</p>-->
-<!--          </div>-->
-<!--          <h3 class="card__price">$7.50</h3>-->
-<!--          <button class="card__add">+</button>-->
-<!--        </div>-->
-<!--      </article>-->
-
-<!--      <article class="card">-->
-<!--        <img class="card__image" src="https://i.ibb.co/JpwBtYk/food2.png"/>-->
-<!--        <div class="card__data">-->
-<!--          <div class="card__info">-->
-<!--            <h2>Nombre Comida</h2>-->
-<!--            <p>Descripcion de la comida, con ingredientes</p>-->
-<!--          </div>-->
-<!--          <h3 class="card__price">$7.50</h3>-->
-<!--          <button class="card__add">+</button>-->
-<!--        </div>-->
-<!--      </article>-->
-<!--    </div>-->
-<!--  </section>-->
-
-
-<!--  <section class="section">-->
-
-<!--    <div class="grid">-->
-<!--      <article class="card">-->
-<!--        <img class="card__image" src="https://i.ibb.co/RT0bjJq/food1.png" />-->
-<!--        <div class="card__data">-->
-<!--          <div class="card__info">-->
-<!--            <h2>Nombre Comida</h2>-->
-<!--            <p>Descripcion de la comida, con ingredientes</p>-->
-<!--          </div>-->
-<!--          <h3 class="card__price">$7.50</h3>-->
-<!--          <button class="card__add">+</button>-->
-<!--        </div>-->
-<!--      </article>-->
-<!--      <article class="card">-->
-<!--        <img class="card__image" src="https://i.imgur.com/oAp8roo.png" />-->
-<!--        <div class="card__data">-->
-<!--          <div class="card__info">-->
-<!--            <h2>Nombre Comida</h2>-->
-<!--            <p>Descripcion de la comida, con ingredientes</p>-->
-<!--          </div>-->
-<!--          <h3 class="card__price">$7.50</h3>-->
-<!--          <button class="card__add">+</button>-->
-<!--        </div>-->
-<!--      </article>-->
-
-<!--      <article class="card">-->
-<!--        <img class="card__image" src="https://i.ibb.co/JpwBtYk/food2.png" />-->
-<!--        <div class="card__data">-->
-<!--          <div class="card__info">-->
-<!--            <h2>Nombre Comida</h2>-->
-<!--            <p>Descripcion de la comida, con ingredientes</p>-->
-<!--          </div>-->
-<!--          <h3 class="card__price">$7.50</h3>-->
-<!--          <button class="card__add">+</button>-->
-<!--        </div>-->
-<!--      </article>-->
-<!--      <article class="card">-->
-<!--        <img class="card__image" src="https://i.imgur.com/oAp8roo.png" />-->
-<!--        <div class="card__data">-->
-<!--          <div class="card__info">-->
-<!--            <h2>Nombre Comida</h2>-->
-<!--            <p>Descripcion de la comida, con ingredientes</p>-->
-<!--          </div>-->
-<!--          <h3 class="card__price">$7.50</h3>-->
-<!--          <button class="card__add">+</button>-->
-<!--        </div>-->
-<!--      </article>-->
-
-<!--    </div>-->
-
-<!--  </section>-->
 
 

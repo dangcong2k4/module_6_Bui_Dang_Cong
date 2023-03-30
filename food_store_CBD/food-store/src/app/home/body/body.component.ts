@@ -9,7 +9,8 @@ import {Router} from "@angular/router";
   styleUrls: ['./body.component.css']
 })
 export class BodyComponent implements OnInit {
-  foodList
+  foodList;
+  index: number;
   constructor(private title:Title,private foodService:FoodService,private router:Router) {
     this.getAll()
   }
@@ -32,4 +33,7 @@ export class BodyComponent implements OnInit {
   //   this.router.navigateByUrl('/detail')
   // }
 
+  showDetail(id) {
+    this.router.navigateByUrl('/detail/'+ id)
+  }
 }
