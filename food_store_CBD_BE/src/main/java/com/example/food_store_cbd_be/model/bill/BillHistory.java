@@ -2,17 +2,18 @@ package com.example.food_store_cbd_be.model.bill;
 
 import com.example.food_store_cbd_be.model.food.Food;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 public class BillHistory implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+
     @ManyToOne
     private Bill bill;
-    @Id
+
     @ManyToOne
     private Food food;
     private Integer quantity;
@@ -20,6 +21,14 @@ public class BillHistory implements Serializable {
 
     public Bill getBill() {
         return bill;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public void setBill(Bill bill) {

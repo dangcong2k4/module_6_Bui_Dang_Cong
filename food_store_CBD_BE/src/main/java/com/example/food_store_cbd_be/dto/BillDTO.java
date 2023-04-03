@@ -3,53 +3,34 @@ package com.example.food_store_cbd_be.dto;
 
 
 public class BillDTO {
-    private int id;
-    private String buyDate;
-    private String detail;
-    private int paymentMethod;
-    private int user;
+    private int userId;
+    private String time;
+    private Double total;
 
     public BillDTO() {
     }
 
-    public int getId() {
-        return id;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    public String getBuyDate() {
-        return buyDate;
+    public String getTime() {
+        return time;
     }
 
-    public void setBuyDate(String buyDate) {
-        this.buyDate = buyDate;
+    public void setTime(String time) {
+        this.time = time;
     }
 
-    public String getDetail() {
-        return detail;
+    public Double getTotal() {
+        return total;
     }
 
-    public void setDetail(String detail) {
-        this.detail = detail;
+    public void setTotal(Double total) {
+        this.total = total;
     }
-
-    public int getPaymentMethod() {
-        return paymentMethod;
-    }
-
-    public void setPaymentMethod(int paymentMethod) {
-        this.paymentMethod = paymentMethod;
-    }
-
-    public int getUser() {
-        return user;
-    }
-
-    public void setUser(int user) {
-        this.user = user;
-    }
-
 }

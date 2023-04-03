@@ -8,7 +8,7 @@ import java.util.List;
 
 
 public interface ICartService {
-    Boolean addCart(Food food, Integer userId);
+    Boolean addCart(Food food, Integer userId,String size);
 
     void createCart(Cart cart);
 
@@ -18,9 +18,13 @@ public interface ICartService {
 
     List<Cart> findAll(Integer id);
 
-    Cart findByFoodIdAndUserId(Food foodId, Integer user_id);
+    Cart findByFoodIdAndUserId(Food foodId, Integer user_id,String size);
 
     void deleteCart(Integer id);
+
+    void deleteCartByIdUser(Integer id);
+
+    void updateSize(Integer id,String size);
 
     Cart findCart(Integer id);
 

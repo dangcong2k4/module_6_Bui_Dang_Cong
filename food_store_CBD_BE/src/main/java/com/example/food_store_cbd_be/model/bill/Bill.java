@@ -12,10 +12,8 @@ public class Bill {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String buyDate;
-    private String detail;
-    @ManyToOne
-    @JoinColumn(name = "paymentMethod_id", referencedColumnName = "id")
-    private PaymentMethod paymentMethod;
+    private Double total;
+
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
@@ -39,20 +37,12 @@ public class Bill {
         this.buyDate = buyDate;
     }
 
-    public String getDetail() {
-        return detail;
+    public Double getTotal() {
+        return total;
     }
 
-    public void setDetail(String detail) {
-        this.detail = detail;
-    }
-
-    public PaymentMethod getPaymentMethod() {
-        return paymentMethod;
-    }
-
-    public void setPaymentMethod(PaymentMethod paymentMethod) {
-        this.paymentMethod = paymentMethod;
+    public void setTotal(Double total) {
+        this.total = total;
     }
 
     public User getUser() {

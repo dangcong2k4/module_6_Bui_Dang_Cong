@@ -20,8 +20,8 @@ public class CartService implements ICartService {
     @Autowired
     private IFoodRepository foodRepository;
     @Override
-    public Boolean addCart(Food food,Integer userId) {
-       return cartRepository.existsByFoodIdAndUserId(food,userId);
+    public Boolean addCart(Food food,Integer userId,String size) {
+       return cartRepository.existsByFoodIdAndUserIdAndSize(food,userId,size);
     }
 
     @Override
@@ -45,8 +45,8 @@ public class CartService implements ICartService {
     }
 
     @Override
-    public Cart findByFoodIdAndUserId(Food foodId, Integer user_id) {
-        return cartRepository.findByFoodIdAndUserId(foodId, user_id);
+    public Cart findByFoodIdAndUserId(Food foodId, Integer user_id,String size) {
+        return cartRepository.findByFoodIdAndUserIdAndSize(foodId, user_id,size);
     }
 
 //    @Override
@@ -58,6 +58,16 @@ public class CartService implements ICartService {
     @Override
     public void deleteCart(Integer id) {
         cartRepository.deleteById(id);
+    }
+
+    @Override
+    public void deleteCartByIdUser(Integer id) {
+        cartRepository.deleteCart(id);
+    }
+
+    @Override
+    public void updateSize(Integer id, String size) {
+        cartRepository.updateSize(id,size);
     }
 
     @Override
