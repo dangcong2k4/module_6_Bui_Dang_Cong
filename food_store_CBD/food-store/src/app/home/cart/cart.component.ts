@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Cart} from "../../model/cart";
 import {TokenService} from "../../service/JWT/token.service";
 import {FormControl, FormGroup} from "@angular/forms";
@@ -10,6 +10,7 @@ import {CartService} from "../../service/cart.service";
 import {LoginService} from "../../service/JWT/login.service";
 import {ShareService} from "../../service/JWT/share.service";
 import {Food} from "../../model/food";
+import {render} from 'creditcardpayments/creditCardPayments';
 
 @Component({
   selector: 'app-cart',
@@ -18,45 +19,31 @@ import {Food} from "../../model/food";
 })
 export class CartComponent implements OnInit {
   billForm: FormGroup;
-  cart:Cart[] = []
+  cart: Cart[] = []
   payment: PaymentMethod[] = [];
-  user:User
+  user: User
   food: Food;
   quantity = 0;
   total = 0;
   isLogged = false;
-  constructor(private token:TokenService, private billService:BillService,private cartService:CartService,
-              private loginService:LoginService, private shareService:ShareService) {
-
-    this.billForm = new FormGroup({
-      buyDate: new FormControl(''),
-      detail: new FormControl(''),
-      paymentMethod: new FormControl(''),
-      user: new FormControl(''),
+  isPaypal = false;
+  constructor(private token: TokenService, private billService: BillService, private cartService: CartService,
+              private loginService: LoginService, private shareService: ShareService) {
+    this.billService.getAllPaymentMethod().subscribe(next => {
+      this.payment = next
     });
-    this.billService.getAllPaymentMethod().subscribe(next=>{
-      this.payment=next
-    });
-    // this.cartService.showAllCart(3).subscribe(next=>{
-    //   this.cart = next;
-    //   this.getCart()
-    // })
-
-    // this.getCart()
     this.getCart();
     this.shareService.getClickEvent().subscribe(next => {
       this.getCart()
     })
+
   }
 
-
-
   ngOnInit(): void {
+
     this.isLogged = this.token.isLogger();
     this.loader();
-    this.getCart()
     this.getValue()
-
     this.shareService.getClickEvent().subscribe(next => {
       this.isLogged = this.token.isLogger();
       this.loader();
@@ -66,59 +53,63 @@ export class CartComponent implements OnInit {
   }
 
   loader() {
-    // this.cart = this.token.getCart()
-    // this.getValue()
     if (this.isLogged) {
-      this.loginService.profile(this.token.getId()).subscribe( next => {
+      this.loginService.profile(this.token.getId()).subscribe(next => {
         this.user = next
       })
     }
   }
 
-  getCart(){
-    this.cartService.showAllCart(this.token.getId()).subscribe(next=>{
-      this.cart = next;
-      this.getValue()
+  paypal(){
+    this.isPaypal = true
+    let money = +((this.total+20000)/23485.5).toFixed(2)
+    render({
+      currency: "USD",
+      id: "#paypal",
+      value: String(money),
+      onApprove: (details) => {
+        this.addBill();
+        this.shareService.getClickEvent()
+      }
     })
   }
 
 
 
+  getCart() {
+    this.cartService.showAllCart(this.token.getId()).subscribe(next => {
+      this.cart = next;
+      this.getValue()
+    })
+  }
 
+  addBill() {
+    let currentTime = new Date();
+    let formatTime = currentTime.toLocaleString();
+    this.billService.addBill(this.token.getId(), this.total, formatTime).subscribe(next => {
+      Swal.fire({
+        position: 'center',
+        title: 'Đã thanh toán thành công',
+        icon: 'success',
+        showConfirmButton: false,
+        timer: 2000
+      });
+      this.cart = []
+      this.loader()
 
-  addBill(){
-    if(this.billForm.valid){
-        this.billService.addBill(this.billForm.value).subscribe(next=>{
-          Swal.fire({
-            position: 'center',
-            title: 'Thêm mới thành công',
-            icon: 'success',
-            showConfirmButton: false,
-            timer: 2000
-          });
-        }, error => {
-          Swal.fire({
-            position: 'center',
-            icon: 'error',
-            title: 'Thêm mới thất bại!',
-            text: 'Thêm mới thất bại',
-            showConfirmButton: false,
-            timer: 2000
-          });
-        })
-    }else {
+      this.shareService.sendClickEvent()
+    }, error => {
       Swal.fire({
         position: 'center',
         icon: 'error',
         title: 'Thêm mới thất bại!',
-        text: 'Thêm mới thất bại vui lòng điền đúng tất cả thông tin',
+        text: 'Thêm mới thất bại',
         showConfirmButton: false,
         timer: 2000
       });
-    }
+    })
+
   }
-  //
-  //
 
   getValue() {
     this.total = 0
@@ -128,36 +119,29 @@ export class CartComponent implements OnInit {
         this.total += this.cart[i].foodId.price * this.cart[i].quantity
       }
     }
-
   }
-  stepUp(userId:number,foodId:number) {
-    this.cartService.increaseQuantity(userId,foodId).subscribe(next=>{
+
+  stepUp(userId: number, foodId: number, size: string) {
+    this.cartService.increaseQuantity(userId, foodId, size).subscribe(next => {
+      this.shareService.sendClickEvent()
       this.getCart()
       this.getValue();
     })
-    this.shareService.sendClickEvent()
-    // this.token.stepUp(index);
-    // this.loader();
-
   }
-  stepDown(userId:number,foodId:number) {
-    this.cartService.reduceQuantity(userId,foodId).subscribe(next=>{
+
+  stepDown(userId: number, foodId: number, size: string) {
+    this.cartService.reduceQuantity(userId, foodId, size).subscribe(next => {
+      this.shareService.sendClickEvent()
       this.getCart()
       this.getValue()
     })
-    // this.token.stepDown(index);
-    // this.loader();
 
   }
 
-  check() {
-
-  }
-
-  delete(id: number,name:string) {
+  delete(id: number, name: string) {
     Swal.fire({
-      title: 'Bạn có muốn xóa?',
-      text: 'Món ăn: ' + name ,
+      title: 'Bạn có muốn xóa Khỏi giỏ hàng?',
+      text: 'Món ăn: ' + name,
       icon: 'question',
       showCancelButton: true,
       confirmButtonColor: '#d33',
@@ -170,17 +154,41 @@ export class CartComponent implements OnInit {
           Swal.fire({
             position: 'center',
             icon: 'success',
-            title: 'Xóa thành công ',
+            title: 'Xóa thành công món ăn: '+ name,
             showConfirmButton: false,
-            timer: 2000
+            timer: 1000
           });
+          this.shareService.sendClickEvent()
           this.getCart()
+          this.cart=[]
           this.getValue()
-
         }, error => {
           console.log(error);
         });
       }
     });
   }
+
+  setSize(value: string, cart:number,foodId:number,userId:number, nameFood:string) {
+    for (let i = 0; i < this.cart.length; i++) {
+      if(this.cart[i].size==value && this.cart[i].foodId.id == foodId && parseInt(this.token.getId()) == userId) {
+        Swal.fire({
+          title: 'đã có size này rồi!',
+          text: 'Món ăn: ' + '"' + nameFood + '"' + ' đã có size: ' + '"' + value + '"' + ' rồi nhé!',
+          iconHtml: '<img src="' + this.cart[i].foodId.image + '" style="width:165px;height: 160px;object-fit: cover">',
+          cancelButtonColor: '#0099FF',
+          cancelButtonText: 'Đã hiểu'
+        })
+        this.getCart()
+        this.getValue()
+        return
+      }
+    }
+    this.cartService.editCart(value, cart,foodId,userId).subscribe(next => {
+      this.getCart()
+      this.getValue();
+    })
+    this.shareService.sendClickEvent()
+  }
+
 }

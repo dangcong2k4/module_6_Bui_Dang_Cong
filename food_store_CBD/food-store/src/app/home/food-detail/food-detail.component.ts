@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FoodService} from "../../service/food.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {TokenService} from "../../service/JWT/token.service";
 import {Food} from "../../model/food";
 import {CartService} from "../../service/cart.service";
@@ -9,6 +9,7 @@ import Swal from "sweetalert2";
 import {User} from "../../model/user";
 import {LoginService} from "../../service/JWT/login.service";
 import {ShareService} from "../../service/JWT/share.service";
+import {Cart} from "../../model/cart";
 
 @Component({
   selector: 'app-food-detail',
@@ -19,6 +20,7 @@ export class FoodDetailComponent implements OnInit {
   food: Food;
   isLogged = false;
   user:User;
+  size:string = 'S';
   // cartForm = new FormGroup({
   //   quantity : new FormControl(''),
   //   userId : new  FormControl(this.user.i),
@@ -27,7 +29,8 @@ export class FoodDetailComponent implements OnInit {
   constructor(private foodService:FoodService, private activatedRoute: ActivatedRoute,
               private token:TokenService,private cartService: CartService,
               private loginService:LoginService,
-              private shareService:ShareService) {
+              private shareService:ShareService,
+              private router:Router) {
 
     this.foodService.findCommodityById(this.activatedRoute.snapshot.paramMap.get('id')).subscribe(next=>{
       this.food=next
@@ -55,23 +58,48 @@ export class FoodDetailComponent implements OnInit {
   }
 
   addCart() {
-    this.cartService.addCart(this.user.id,this.food.id,1).subscribe(next=>{
+    if(!this.isLogged){
       Swal.fire({
-        position: 'center',
-        title: 'Thêm mới thành công'+ this.user.id,
-        icon: 'success',
-        showConfirmButton: false,
-        timer: 2000
+        title: 'Bạn bạn hiện tại chưa đăng nhập',
+        text: 'Bạn có muốn vào trang đăng nhập không?' ,
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#0099FF',
+        cancelButtonColor: '#BBBBBB',
+        confirmButtonText: 'Đăng nhập',
+        cancelButtonText: 'Không'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.shareService.sendClickEvent()
+          this.router.navigateByUrl('/login')
+          }
       });
-    }, error => {
-      Swal.fire({
-        position: 'center',
-        icon: 'error',
-        title: 'Thêm mới thất bại!',
-        text: 'Thêm mới thất bại',
-        showConfirmButton: false,
-        timer: 2000
-      });
-    })
+    }else {
+      this.cartService.addCart(this.user.id,this.food.id,1,this.size).subscribe(next=>{
+        Swal.fire({
+          position: 'center',
+          title: 'Đã thêm vào giỏ hàng thành công',
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 1000
+        });
+        this.shareService.sendClickEvent()
+
+      }, error => {
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Thêm mới thất bại!',
+          text: 'Thêm mới thất bại',
+          showConfirmButton: false,
+          timer: 2000
+        });
+      })
+    }
+
+  }
+
+  setSize(value: string) {
+    this.size = value;
   }
 }

@@ -37,15 +37,16 @@
         <li class="nav-item cart">
           <a style="color: black" class="nav-link" routerLink="/"><i style="color: black" class="fa-solid fa-utensils"></i><p class="hover"> Đồ ăn</p></a>
         </li>
-        <li class="nav-item cart">
-          <a style="color: black" routerLink="/cart"><i style="color: black" class="fa-solid fa-cart-shopping icon"></i><p class="hover"> Giỏ hàng</p></a>
+        <li class="nav-item cart" style="position: relative">
+          <a style="color: black;position: relative" routerLink="/cart"><i style="color: black" class="fa-solid fa-cart-shopping icon"></i><p class="hover"> Giỏ hàng</p></a>
+         <span *ngIf="total>0" style="background-color: red;color: cornsilk;position: absolute;padding:0 7px;border-radius: 50%;top: 20px;right: 25px">{{total}}</span>
         </li>
         <li class="nav-item cart">
           <a style="color: black" class="nav-link" ><i style="color: black"  class="fa-solid fa-wrench"></i><p class="hover"> Quản lý</p></a>
-          <ul>
+          <ul style="width: 180px">
             <li routerLink="/food">Món ăn</li>
             <li>Nhân viên</li>
-            <li>Quá trình</li>
+            <li routerLink="/bill">Lịch sử mua hàng</li>
           </ul>
         </li>
       </ul>
@@ -66,7 +67,7 @@
             <span style="text-transform: uppercase;">{{user.name}}</span> </div>
           <div  class=" dropdown-menu" aria-labelledby="dropdownMenuButton1"  style="font-size: 15px">
             <p class="category-item dropdown-item" routerLink="/profile">
-              <i class="fa-sharp fa-solid fa-user" style="margin-right: 5px"></i> Thông tin cá nhân</p>
+              <i class="fa-sharp fa-solid fa-user" style="margin-right: 5px" routerLink="/profile"></i> Thông tin cá nhân</p>
             <p class="category-item dropdown-item" (click)="logout()">
               <i class="fa-sharp fa-solid fa-right-from-bracket" style="margin-right: 5px"></i> Đăng xuất</p>
           </div>

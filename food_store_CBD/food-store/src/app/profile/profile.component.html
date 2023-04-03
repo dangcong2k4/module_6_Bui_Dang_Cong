@@ -1,0 +1,227 @@
+
+<div class="container" style="margin-top: 30px;margin-bottom: 30px">
+  <div class="profile-header">
+    <div class="profile-img">
+      <img *ngIf="user.avatar!=null" src="{{user.avatar}}" width="200" alt="Profile Image">
+      <img *ngIf="user.avatar==null" src="http://thuthuattienich.com/wp-content/uploads/2017/02/anh-dai-dien-facebook-doc-2.jpg" width="200" alt="Profile Image">
+    </div>
+    <div class="profile-nav-info">
+      <h3 class="user-name">{{user.name}}</h3>
+      <div class="address">
+        <span>Địa chỉ:&nbsp;&nbsp;</span>
+        <p *ngIf="user.address!=null" id="state" class="state">{{user.address}}</p>
+        <p *ngIf="user.address==null" id="state1" class="state">Bạn chưa có địa chỉ</p>
+      </div>
+
+    </div>
+    <div class="profile-option">
+      <div class="notification">
+        <i class="fa-solid fa-user-gear"></i>
+        <span class="alert-message">3</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-bd">
+    <div class="left-side">
+      <div class="profile-side">
+        <p class="mobile-no"><i class="fa fa-phone"></i> +{{user.phoneNumber}}</p>
+        <p class="user-mail"><i class="fa fa-envelope"></i> {{user.email}}</p>
+        <div class="user-bio">
+          <h3>Bio</h3>
+          <p class="bio">
+            Lorem ipsum dolor sit amet, hello how consectetur adipisicing elit. Sint consectetur provident magni yohoho consequuntur, voluptatibus ghdfff exercitationem at quis similique. Optio, amet!
+          </p>
+        </div>
+        <div class="profile-btn">
+          <button class="chatbtn" id="chatBtn"><i class="fa fa-comment"></i> Chat</button>
+          <button class="createbtn" id="Create-post"><i class="fa fa-plus"></i> Create</button>
+        </div>
+        <div class="user-rating">
+          <h3 class="rating">4.5</h3>
+          <div class="rate">
+            <div class="star-outer">
+              <div class="star-inner">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+              </div>
+            </div>
+            <span class="no-of-user-rate"><span>123</span>&nbsp;&nbsp;reviews</span>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+    <div class="right-side" style="margin-left: 100px ">
+
+      <div class="nav">
+        <ul>
+          <li (click)="setIndex(1)" [class.active]="index == 1" class="user-post active" style="width: 800px">Thông tin</li>
+          <li (click)="setIndex(2)" [class.active]="index == 2" class="user-review">Món ăn đã mua</li>
+          <li (click)="setIndex(3)" [class.active]="index == 3" class="user-setting">Khách hàng loại</li>
+        </ul>
+      </div>
+      <div class="profile-body" >
+        <div  *ngIf="index==1">
+          <h1>Thông tin</h1>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa quia sunt itaque ut libero cupiditate ullam qui velit laborum placeat doloribus, non tempore nisi ratione error rem minima ducimus. Accusamus adipisci quasi at itaque repellat sed
+            magni eius magnam repellendus. Quidem inventore repudiandae sunt odit. Aliquid facilis fugiat earum ex officia eveniet, nisi, similique ad ullam repudiandae molestias aspernatur qui autem, nam? Cupiditate ut quasi iste, eos perspiciatis maiores
+            molestiae.</p>
+        </div>
+        <div  *ngIf="index==2">
+          <h1 class="text-center" style="margin: 30px 0;width: 915px">Lịch sử mua hàng</h1>
+          <div *ngIf="pageBill==null" class="text-center"><h3 style="color: red">Hiện tại bạn chưa mua món ăn nào ở cửa hàng nên không có lịch sử mua hàng</h3></div>
+          <div *ngIf="pageBill!=null" style="height: 265px;width: 915px">
+            <table class="table table-striped table-bordered" >
+              <thead>
+              <tr class="bg-info" style="color: white">
+                <th scope="col" class="text-center" style="width: 30px">STT</th>
+                <th scope="col" style="width: 200px">Thời gian mua</th>
+                <th scope="col" style="width: 150px">Tổng tiền phải trả</th>
+                <th scope="col" class="text-center" style="width: 50px">Chi tiết</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let bill of pageBill['content'] index as i">
+                <td  class="text-center">{{i + 1 + pageBill.number * pageBill.size}}</td>
+                <td>{{bill.buyDate}}</td>
+                <td>{{bill.total | currency: 'VND': 'symbol'}}</td>
+                <td  class="text-center">
+                  <button class="btn btn-info button" (click)="showBillDetail(bill.id)">Xem</button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <div *ngIf="pageBill!=null" class="col-12">
+            <nav>
+              <ul class="pagination justify-content-center">
+                <li class="page-item text-center"><a class="page-link" style="width: 50px;height: 33px"
+                                         [ngClass]="pageBill?.first ? 'disabled': ''"
+                                         (click)="gotoPage(0)"> << </a></li>
+                <li class="page-item text-center" *ngIf="pageBill.number - 2 > 0">
+                  <a class="page-link" style="width: 30px;height: 33px" (click)="gotoPage(pageBill.number - 3)">{{pageBill.number - 2}}</a>
+                </li>
+                <li class="page-item text-center" *ngIf="pageBill.number - 1 > 0">
+                  <a class="page-link" style="width: 30px;height: 33px" (click)="gotoPage(pageBill.number - 2)">{{pageBill.number - 1}}</a>
+                </li>
+                <li class="page-item text-center" *ngIf="pageBill.number > 0">
+                  <a class="page-link" style="width: 30px;height: 33px" (click)="gotoPage(pageBill.number   - 1)">{{pageBill.number}}</a>
+                </li>
+
+                <li class="page-item active text-center"><a style="width: 30px;height: 33px" class="page-link">{{pageBill.number + 1}}</a></li>
+
+                <li class="page-item text-center" *ngIf="pageBill.number + 2 <= pageBill.totalPages">
+                  <a class="page-link" style="width: 30px;height: 33px" (click)="gotoPage(pageBill.number + 1)">{{pageBill.number + 2}}</a>
+                </li>
+                <li class="page-item text-center" *ngIf="pageBill.number + 3 <= pageBill.totalPages">
+                  <a class="page-link" style="width: 30px;height: 33px" (click)="gotoPage(pageBill.number + 2)">{{pageBill.number + 3}}</a>
+                </li>
+                <li class="page-item text-center" *ngIf="pageBill.number + 4 <= pageBill.totalPages">
+                  <a class="page-link" style="width: 30px;height: 33px" (click)="gotoPage(pageBill.number + 3)">{{pageBill.number + 4}}</a>
+                </li>
+                <li class="page-item text-center"><a class="page-link" style="width: 50px;height: 33px"
+                                         [ngClass]="pageBill.last ? 'disabled': ''"
+                                         (click)="gotoPage(pageBill.totalPages - 1)"> >> </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <div *ngIf="index==4">
+          <h1 class="text-center" style="margin: 30px 0;width: 915px">Chi tiết</h1>
+          <div style="height: 265px;width: 915px">
+            <table class="table table-striped table-bordered" >
+              <thead>
+              <tr class="bg-info" style="color: white">
+                <th scope="col" class="text-center" style="width: 30px">STT</th>
+                <th scope="col" style="width: 200px">Tên món ăn</th>
+                <th scope="col" style="width: 200px">Size</th>
+                <th scope="col" style="width: 200px">Giá tiền</th>
+                <th scope="col" style="width: 150px">Số lượng</th>
+<!--                <th scope="col" class="text-center" style="width: 50px">Chi tiết</th>-->
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let billHistory of billHistory['content'] index as i">
+                <td  class="text-center">{{i + 1}}</td>
+                <td>{{billHistory.food.name}}</td>
+                <td>{{billHistory.size}}</td>
+                <td>{{billHistory.food.price | currency: 'VND': 'symbol'}}</td>
+                <td>{{billHistory.quantity}}</td>
+<!--                <td>{{bill.total | currency: 'VND': 'symbol'}}</td>-->
+<!--                <td  class="text-center">-->
+<!--                  <button class="btn btn-info button" (click)="index=4">Xem</button>-->
+<!--                </td>-->
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div  *ngIf="index==3">
+          <div class="firework" style="margin-top: 500px"></div>
+          <div class="firework" style="margin-top: 500px"></div>
+          <div class="firework" style="margin-top: 500px"></div>
+          <div class="firework" style="margin-top: 500px"></div>
+          <div class="firework" style="margin-top: 500px"></div>
+          <div class="firework" style="margin-top: 500px"></div>
+          <div class="firework" style="margin-top: 500px"></div>
+          <div class="firework" style="margin-top: 500px"></div>
+          <div class="firework" style="margin-top: 500px"></div>
+          <div class="firework" style="margin-top: 500px"></div>
+          <div class="firework" style="margin-top: 500px"></div>
+          <div class="firework" style="margin-top: 500px"></div>
+          <div class="account-setting text-center">
+            <h1 style="margin-top: 30px">Hạng Thành Viên</h1>
+            <div *ngIf="ranks<3">
+              <i>Hiện tại hạng thành viên của bạn chưa có, bạn có thể đặt món ăn 3 lần để có được <b style="color: #FFCC66;-webkit-text-stroke: 1px #996633">Thành Viên Đồng</b></i>
+            </div>
+            <div *ngIf="ranks>=3&& ranks<5">
+              <img src="https://i.imgur.com/I19xBVD.png" alt="">
+              <p>Chúc mừng bạn bạn đang là <b style="color: #FFCC66;-webkit-text-stroke: 1px #996633">Thành Viên Đồng</b> của FoodStore</p>
+              <i>Bạn chỉ cần {{5-ranks}} lần mua hàng nữa thì sẽ trở thành "<b style="color: #BBBBBB;-webkit-text-stroke: 1px #777777">Thành Viên Bạc</b>" của foodStore</i>
+            </div>
+            <div *ngIf="ranks>=5 && ranks<8">
+              <img src="https://i.imgur.com/UsX8oQG.png" alt="">
+              <p>Chúc mừng bạn bạn đang là <b style="color: #BBBBBB;-webkit-text-stroke: 1px #777777">Thành Viên Bạc</b> của FoodStore</p>
+              <i>Bạn chỉ cần {{8-ranks}} lần mua hàng nữa thì sẽ trở thành "<b style="color: yellow;-webkit-text-stroke: 1px red;">Thành Viên Vàng</b>" của foodStore</i>
+            </div>
+            <div *ngIf="ranks>=8 && ranks<15">
+              <img src="https://i.imgur.com/8rzPdl7.png" alt="">
+              <p>Chúc mừng bạn bạn đang là <b style="color: yellow;-webkit-text-stroke: 1px red;">Thành Viên Vàng</b> của FoodStore</p>
+              <i>Bạn chỉ cần <span style="color: red">{{15-ranks}}</span> lần mua hàng nữa thì sẽ trở thành "<b style="color: #00FFFF;-webkit-text-stroke: 1px #0099CC;">Thành Viên Bạch Kim</b>" của foodStore</i>
+            </div>
+            <div *ngIf="ranks>=15 && ranks<20">
+              <img src="https://i.imgur.com/Xkufzoh.png" alt="">
+              <p>Chúc mừng bạn bạn đang là <b style="color: #00FFFF;-webkit-text-stroke: 1px #0099CC;">Thành Viên Bạch Kim</b> của FoodStore</p>
+              <i>Bạn chỉ cần {{20-ranks}} lần mua hàng nữa thì sẽ trở thành "<b style="color: #33CCFF;-webkit-text-stroke: 1px #CC66FF">Thành Viên Kim Cương</b>"  của foodStore</i>
+            </div>
+            <div *ngIf="ranks>=20">
+              <img src="https://i.imgur.com/WmEGzkZ.png" alt="">
+              <p>Chúc mừng bạn bạn đang là <b style="color: #33CCFF;-webkit-text-stroke: 1px #CC66FF">Thành Viên Kim Cương</b> của FoodStore</p>
+              <i>Hiện tại hạng thành viên của bạn đang là hạng cao nhất của cửa hàng FoodStore của chúng tôi</i>
+            </div>
+          </div>
+          <div style="margin-left: 130px;margin-top: 45px">
+            <img style="height: 70px;width: 80px" src="https://i.imgur.com/I19xBVD.png" alt="">
+            <img style="height: 70px;width: 80px;margin-left: 95px" src="https://i.imgur.com/UsX8oQG.png" alt="">
+            <img style="height: 70px;width: 80px;margin-left: 85px" src="https://i.imgur.com/8rzPdl7.png" alt="">
+            <img style="height: 70px;width: 90px;margin-left: 80px" src="https://i.imgur.com/Xkufzoh.png" alt="">
+            <img style="height: 70px;width: 90px;margin-left: 80px" src="https://i.imgur.com/WmEGzkZ.png" alt="">
+          </div>
+
+          <input *ngIf="ranks< 3" disabled style="width: 850px;height: 30px" type="range" value="0">
+          <input *ngIf="ranks>=3&& ranks<5" disabled style="width: 850px;height: 30px" type="range" value="20">
+          <input *ngIf="ranks>=5 && ranks<8" disabled style="width: 850px;height: 30px" type="range" value="40">
+          <input *ngIf="ranks>=8 && ranks<15" disabled style="width: 850px;height: 30px" type="range" value="60">
+          <input *ngIf="ranks>=15 && ranks<20" disabled style="width: 850px;height: 30px" type="range" value="80">
+          <input *ngIf="ranks>=20" disabled style="width: 850px;height: 30px" type="range" value="100">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

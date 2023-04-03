@@ -16,9 +16,11 @@ export class CreateComponent implements OnInit {
   foodForm: FormGroup;
   selectedImage: any = null;
   url: any;
+  isLoading = false;
   downloadURL: Observable<string> | undefined;
   fb: string | undefined;
   src: string | undefined;
+
   constructor(private router:Router,private foodService:FoodService, private storage: AngularFireStorage) {
     this.foodForm = new FormGroup({
       name : new FormControl(''),
@@ -68,6 +70,7 @@ export class CreateComponent implements OnInit {
     const filePath = this.selectedImage.name;
     const fileRef = this.storage.ref(filePath);
     const task = this.storage.upload(filePath, this.selectedImage);
+    this.isLoading = true
     task
       .snapshotChanges()
       .pipe(
@@ -75,13 +78,15 @@ export class CreateComponent implements OnInit {
           this.downloadURL = fileRef.getDownloadURL();
           this.downloadURL.subscribe(url => {
             if (url) {
-              // lấy lại url
+              this.isLoading = true
               this.fb = url;
             }
             this.foodForm.patchValue({image: url});
             this.src = url;
+            this.isLoading = false
             console.log('link: ', this.fb);
             this.src = url;
+
             // console.log('link: ', this.fb);
           });
         })

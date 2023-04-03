@@ -24,9 +24,10 @@ export class ListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    window.scroll(0,600)
     this.searchFood();
     this.findByAllFood(0);
-    window.scroll(0,300)
+
   }
 
 

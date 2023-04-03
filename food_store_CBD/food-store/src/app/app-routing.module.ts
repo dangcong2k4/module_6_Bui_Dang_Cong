@@ -8,6 +8,8 @@ const routes: Routes = [
   {path:'login',loadChildren: () => import('./log-in/log-in-routing.module').then(module => module.LogInRoutingModule)},
   {path:'food',loadChildren: () => import('./food/food-routing.module').then(module => module.FoodRoutingModule)},
   {path:'signUp',loadChildren: () => import('./signup/signup-routing.module').then(module => module.SignupRoutingModule)},
+  {path:'profile',loadChildren: () => import('./profile/profile-routing.module').then(module => module.ProfileRoutingModule)},
+  {path:'bill',loadChildren: () => import('./bill/bill-routing.module').then(module => module.BillRoutingModule)},
 
 
 ];

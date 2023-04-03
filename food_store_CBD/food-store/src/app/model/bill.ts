@@ -1,6 +1,8 @@
+import {User} from "./user";
+
 export interface Bill {
+  id?:number;
   buyDate?: string;
-  detail?: string;
-  paymentMethod?: number;
-  user?: number;
+  total?: number;
+  user?: User;
 }

@@ -1,4 +1,5 @@
-<div style="margin: 50px 200px; border-radius: 1px">
+<div style="margin: 50px 300px; border: 1px solid black">
+  <h1 class="text-center" style="margin: 30px 0">Trang chỉnh sửa món ăn</h1>
 <form [formGroup]="foodForm" >
   <input id="id" class="form-control" type="hidden" formControlName="id">
   <div class="row align-items-center py-3">
@@ -14,19 +15,24 @@
 
   <div class="row align-items-center py-3">
     <div class="col-md-3 ps-5">
-      <label for="image" style="font-weight: bold" class="mb-0">Hình ảnh:<sup
+      <label style="font-weight: bold" class="mb-0">Hình ảnh:<sup
         style="color: red;font-size: 15px" title="Bắt buộc">*</sup> </label>
     </div>
-    <div class="col-md-9 pe-5">
-      <input accept=".jpg, .png, .jpeg, .gif, .pdf" (change)="showPreview($event)" required
-             id="image"
-             class="form-control-file" type="file"/>
-    </div>
-    <div class="col-md-9 pe-5" style="position: relative;margin-left: 150px">
-      <input  type="text" style="display: none" readonly formControlName="image" class="form-control">
-    </div>
-    <div style="margin-left: 300px" class="col-md-9 pe-5">
-      <img [src]="food.image" style="width: 150px">
+    <div style="margin-left: 200px" class="col-md-9 pe-5">
+      <div style="position: relative">
+        <input  type="text" style="display: none" readonly formControlName="image" class="form-control">
+      </div>
+      <label *ngIf="isLoading == false" class="hoverable" for="fileInput" style="margin-top: -30px">
+        <img [src]="fb ? fb : food.image">
+        <div class="hover-text">Chọn ảnh</div>
+        <div class="background"></div>
+      </label>
+      <input id="fileInput" type='file' (change)="showPreview($event)">
+      <div *ngIf="isLoading == true" class="spinner-box">
+        <div class="circle-border">
+          <div class="circle-core"></div>
+        </div>
+      </div>
     </div>
 
 
@@ -49,8 +55,8 @@
         style="color: red;font-size: 15px" title="Bắt buộc">*</sup> </label>
     </div>
     <div class="col-md-9 pe-5" style="position: relative">
-      <input formControlName="description" required id="description" class="form-control"
-             placeholder="Vui lòng nhập giá (*)">
+      <textarea formControlName="description" required id="description" class="form-control"
+                placeholder="Vui lòng nhập giá (*)"></textarea>
     </div>
   </div>
   <div class="text-center">

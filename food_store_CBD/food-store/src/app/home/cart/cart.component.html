@@ -16,42 +16,49 @@
               <div class="col-lg-8">
                 <div class="p-5">
                   <hr class="my-4">
-                  <div [formGroup]="billForm">
-                    <input  type="hidden" formControlName="user" value="{{user.id}}">
-                  </div>
+
 
                   <div *ngFor="let x of cart;index as i" class="row mb-4 d-flex justify-content-between align-items-center" style="margin-bottom: -10px">
                     <div class="col-md-2 col-lg-2 col-xl-2">
                       <img
-                        src="{{x.foodId.image}}}"
+                        src="{{x.foodId.image}}"
                         class="img-fluid rounded-3" alt="Cotton T-shirt">
                     </div>
-                    <div class="col-md-3 col-lg-3 col-xl-3">
 
+                    <div class="col-md-1 col-lg-2 col-xl-2">
                       <h6 class="text-black mb-0">{{x.foodId.name}}</h6>
                     </div>
 
+                    <div class="col-md-1 col-lg-3 col-xl-3">
+                      <label for="size">Size :</label>
+                      <select  id="select" #select (change)="setSize(select.value,x.id,x.foodId.id,user.id,x.foodId.name)" id="size" style="width: 50px" class="form-control">
+                        <option [selected]="x.size =='S'" [value]="'S'">S</option>
+                        <option [selected]="x.size =='M'" [value]="'M'">M</option>
+                        <option [selected]="x.size =='L'" [value]="'L'">L</option>
+                        <option [selected]="x.size =='XL'" [value]="'XL'">XL</option>
+                      </select>
+                    </div>
 
 
                     <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                        <button [disabled]="x.quantity == 0" style="background-color: #FF9933" class="btn btn-link px-2" (click)="stepDown(user.id,x.foodId.id)">
+                        <button [disabled]="x.quantity == 0" style="background-color: #FF9933" class="btn btn-link px-2" (click)="stepDown(user.id,x.foodId.id,select.value)">
                           <i class="fas fa-minus" style="color: white"></i>
                         </button>
-
-                      <input [value]="x.quantity" style="width: 50px" value="1" type="number"
+                      <input readonly [value]="x.quantity" style="width: 50px" value="1" type="number"
                              class="form-control form-control-sm" />
-
-                      <button  style="background-color: #FF9933" class="btn btn-link px-2" (click)="stepUp(user.id,x.foodId.id)">
+                      <button  style="background-color: #FF9933" class="btn btn-link px-2" (click)="stepUp(user.id,x.foodId.id,select.value)">
                         <i class="fas fa-plus" style="color: white"></i>
                       </button>
                     </div>
 
-                    <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                    <div class="col-md-2 col-lg-1 col-xl-2 offset-lg-1" style="margin: 0">
                       <h6 class="mb-0">{{x.foodId.price | currency:'VND':'symbol'}}</h6>
                     </div>
+
                     <div class="col-md-1 col-lg-1 col-xl-1 text-end">
                       <a class="text-muted"><i class="fas fa-times" (click)="delete(x.id,x.foodId.name)"></i></a>
                     </div>
+
                     <hr class="my-4">
                   </div>
 
@@ -63,7 +70,7 @@
               </div>
               <div class="col-lg-4 bg-grey">
                 <div class="p-5">
-                  <h3 class="fw-bold mb-5 mt-2 pt-1">Hóa đơn</h3>
+                  <h3 class="fw-bold mb-5 mt-2 pt-1">Hóa đơn </h3>
                   <hr class="my-4">
 
                   <div class="d-flex justify-content-between mb-4">
@@ -94,19 +101,9 @@
                     <h5 class="text-uppercase">Tổng tiền</h5>
                     <h5>{{total+20000 | currency:'VND':'symbol'}}</h5>
                   </div>
-                  <div class="row align-items-center py-3">
-                      <label for="trademark" style="font-weight: bold" class="mb-0">Hình thức thanh toán:<sup style="color: red;font-size: 15px" title="Bắt buộc">*</sup>
-                      </label>
-                    <div class="col-md-9 pe-5" style="position: relative">
-                      <select formControlName="paymentMethod" required id="trademark" class="form-control"
-                              aria-label="Default select example">
-                        <option *ngFor="let paymentMethod of payment"
-                                [ngValue]="paymentMethod">{{paymentMethod.name}}</option>
-                      </select>
-                    </div>
-                  </div>
-                  <button type="button" (click)="addBill()" class="btn btn-dark btn-block btn-lg1"
+                  <button *ngIf="isPaypal == false" type="button" (click)="paypal()" class="btn btn-dark btn-block btn-lg1"
                           data-mdb-ripple-color="dark">Thanh toán</button>
+                  <div id="paypal"></div>
                 </div>
               </div>
             </div>

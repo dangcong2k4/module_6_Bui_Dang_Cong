@@ -5,6 +5,8 @@ import {User} from "../../model/user";
 import {LoginService} from "../../service/JWT/login.service";
 import {ShareService} from "../../service/JWT/share.service";
 import {Subscription} from "rxjs";
+import {CartService} from "../../service/cart.service";
+import {Cart} from "../../model/cart";
 
 @Component({
   selector: 'app-header',
@@ -12,6 +14,7 @@ import {Subscription} from "rxjs";
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit{
+  cart:Cart[] = []
 
   role = 'none';
   user:User
@@ -19,22 +22,51 @@ export class HeaderComponent implements OnInit{
   isLogged = false;
   message:string;
   subscription: Subscription;
-  constructor(private token: TokenService,private share:ShareService,private router: Router,private loginService:LoginService) {
-    this.token.getUserNameLoggedIn().subscribe(next => {this.name = next
-      this.isLogged = this.token.isLogger();
-      this.loader();
-      this.share.getClickEvent().subscribe(next => {
-        this.loader()
-      })
-    });
+  total: number;
+  quantity: number;
+  constructor(private token: TokenService,private share:ShareService,private router: Router,private loginService:LoginService,private cartService:CartService) {
+    // this.token.getUserNameLoggedIn().subscribe(next => {this.name = next
+    //   this.isLogged = this.token.isLogger();
+    //   this.loader();
+    //   this.getCart()
+    //   this.getQuantity()
+    //   this.share.getClickEvent().subscribe(next => {
+    //     this.loader()
+    //     this.getCart()
+    //     this.getQuantity()
+    //   })
+    // });
   }
 
   ngOnInit(): void {
     this.isLogged = this.token.isLogger()
+    this.loader();
+    this.getCart();
+    this.getQuantity()
     this.share.getClickEvent().subscribe(next => {
+      this.isLogged = this.token.isLogger()
       this.loader()
+      this.getCart()
+      this.getQuantity()
     })
-      this.loader();
+
+  }
+
+  getCart(){
+    this.cartService.showAllCart(this.token.getId()).subscribe(next=>{
+      this.cart = next;
+      this.getQuantity()
+    })
+  }
+
+
+  getQuantity() {
+    this.total = 0
+    if (this.cart != null) {
+      for (let i = 0; i < this.cart.length; i++) {
+        this.total +=  this.cart[i].quantity
+      }
+    }
   }
 
   login(){

@@ -38,11 +38,11 @@
           <div class="row">
             <div class="col-md-6">
               <label for="size">kích thước loại :</label>
-              <select id="size" name="size" style="width: 115px" class="form-control">
-                <option>S</option>
-                <option>M</option>
-                <option>L</option>
-                <option>XL</option>
+              <select #select (change)="setSize(select.value)" id="size" style="width: 115px" class="form-control">
+                <option [value]="'S'">S</option>
+                <option [value]="'M'">M</option>
+                <option [value]="'L'">L</option>
+                <option [value]="'XL'">XL</option>
               </select>
             </div>
 

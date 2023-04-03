@@ -20,6 +20,10 @@ import {SignupModule} from "./signup/signup.module";
 import {AngularFireStorage, AngularFireStorageModule} from "@angular/fire/storage";
 import {AngularFireModule} from "@angular/fire";
 import {environment} from "../environments/environment";
+import { ProfileComponent } from './profile/profile.component';
+import {ProfileModule} from "./profile/profile.module";
+import { BillComponent } from './bill/bill.component';
+import {BillModule} from "./bill/bill.module";
 
 @NgModule({
   declarations: [
@@ -30,15 +34,18 @@ import {environment} from "../environments/environment";
     BodyComponent,
     CartComponent,
     ListComponent,
-    SignupComponent
+    SignupComponent,
+    // BillComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HomeModule,
+    BillModule,
     LogInModule,
     SignupModule,
     FoodModule,
+    ProfileModule,
     ReactiveFormsModule,
     AngularFireStorageModule,
     AngularFireModule.initializeApp(environment.firebaseConfig)

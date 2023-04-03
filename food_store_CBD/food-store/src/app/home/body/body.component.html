@@ -10,15 +10,15 @@
           <div class="card__data">
             <div class="card__info">
               <h2>{{food.name}}</h2>
-              <p>{{food.description}}</p>
+              <p>{{food.description }}</p>
             </div>
             <h3 class="card__price">{{food.price | currency: 'VND': 'symbol'}}</h3>
-            <button class="card__add" [routerLink]="['/detail',food.id]">+</button>
+            <button class="card__add" (click)="addCart(food.id)">+</button>
           </div>
         </article>
       </div>
     </section>
   </div>
-
+<!--  [routerLink]="['/detail',food.id]"-->
 
 

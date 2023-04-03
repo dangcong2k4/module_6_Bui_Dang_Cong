@@ -16,6 +16,7 @@ import {AngularFireStorage} from "@angular/fire/storage";
 export class EditComponent implements OnInit {
   foodForm: FormGroup;
   food: Food = {};
+  isLoading = false;
   selectedImage: any = null;
   downloadURL: Observable<string> | undefined;
   fb: string | undefined;
@@ -41,6 +42,7 @@ export class EditComponent implements OnInit {
     const filePath = this.selectedImage.name;
     const fileRef = this.storage.ref(filePath);
     const task = this.storage.upload(filePath, this.selectedImage);
+    this.isLoading = true
     task
       .snapshotChanges()
       .pipe(
@@ -48,11 +50,13 @@ export class EditComponent implements OnInit {
           this.downloadURL = fileRef.getDownloadURL();
           this.downloadURL.subscribe(url => {
             if (url) {
-              // lấy lại url
+              this.isLoading = true
               this.food.image = url;
             }
             this.foodForm.patchValue({image: url});
             this.fb = url;
+            this.isLoading = false;
+
             console.log('link', this.food.image);
           });
         })
