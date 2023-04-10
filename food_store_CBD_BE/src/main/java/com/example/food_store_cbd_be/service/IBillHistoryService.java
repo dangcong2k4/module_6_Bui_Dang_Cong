@@ -10,4 +10,7 @@ public interface IBillHistoryService {
     void addBillHistory(BillHistory billHistory);
 
     Page<BillHistory> findAllByBill(Bill bill, Pageable pageable);
+
+
+    Page<BillHistory> findFoodByQuantity(Pageable pageable);
 }

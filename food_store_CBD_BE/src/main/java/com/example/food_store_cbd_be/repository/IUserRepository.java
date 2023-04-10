@@ -24,7 +24,7 @@ public interface IUserRepository extends JpaRepository<User, Integer> {
 
     Boolean existsByUsername(String username);
     Boolean existsByEmail(String email);
-
+    Boolean existsByPhoneNumber(String phoneNumber);
     @Modifying
     @Query(value = "update user set name = :name,phone_number = :phone_number,email = :email," +
             " address = :address,age = :age,gender = :gender,date_of_birth = :date_of_birth,avatar = :avatar" +
@@ -42,7 +42,12 @@ public interface IUserRepository extends JpaRepository<User, Integer> {
     @Query(value = "select * from user", nativeQuery = true)
     List<User> getAllUser();
 
-
+    @Modifying
+    @Transactional
+    @Query(value = "update user  set avatar = :avatar" +
+            " where id = :id", nativeQuery = true)
+    void updateAvatar(@Param("id") Integer id,
+                      @Param("avatar") String avatar);
 
 }
 

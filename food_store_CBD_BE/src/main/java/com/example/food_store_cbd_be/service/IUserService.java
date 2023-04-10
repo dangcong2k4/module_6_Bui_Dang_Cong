@@ -4,6 +4,7 @@ import com.example.food_store_cbd_be.dto.request.UpdateUserForm;
 import com.example.food_store_cbd_be.model.user.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,9 +23,12 @@ public interface IUserService {
     Boolean existsByUsername(String username);
 
     Boolean existsByEmail(String email);
+    Boolean existsByPhoneNumber(String number);
 
 
     List<User> findAll();
+
+    void updateAvatar(Integer id,String image);
 
 
 

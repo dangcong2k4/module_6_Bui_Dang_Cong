@@ -1,6 +1,6 @@
 package com.example.food_store_cbd_be.dto;
 
-public class Username {
+public class UsernameDto {
     private String username;
 
     public String getUsername() {

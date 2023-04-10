@@ -68,10 +68,20 @@ public class UserService implements IUserService {
         return iUserRepository.existsByEmail(email);
     }
 
+    @Override
+    public Boolean existsByPhoneNumber(String number) {
+        return iUserRepository.existsByPhoneNumber(number);
+    }
+
 
     @Override
     public List<User> findAll() {
         return iUserRepository.getAllUser();
+    }
+
+    @Override
+    public void updateAvatar(Integer id, String image) {
+        iUserRepository.updateAvatar(id,image);
     }
 
 

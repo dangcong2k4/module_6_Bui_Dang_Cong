@@ -24,4 +24,12 @@ public class BillHistoryController {
         Page<BillHistory> billHistories = billHistoryService.findAllByBill(bill,pageable);
         return new ResponseEntity<>(billHistories, HttpStatus.OK);
     }
+
+    @GetMapping("/showFood")
+    public ResponseEntity<Page<BillHistory>> findAllFoodByQuantity(@PageableDefault(value = 4) Pageable pageable) {
+        Page<BillHistory> billHistories = billHistoryService.findFoodByQuantity(pageable);
+        return new ResponseEntity<>(billHistories, HttpStatus.OK);
+    }
+
+
 }

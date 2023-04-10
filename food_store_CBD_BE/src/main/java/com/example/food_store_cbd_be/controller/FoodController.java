@@ -112,5 +112,15 @@ public class FoodController {
         }
         return new ResponseEntity<>(foodDtos,HttpStatus.OK);
     }
+    @PostMapping("/showList")
+    public ResponseEntity<Page<IFoodDto>> findByAllSearchForCustomer(
+            @RequestBody FoodDtoSearch foodDtoSearch ,
+            @PageableDefault(value = 16) Pageable pageable){
+        Page<IFoodDto> foodDtos = foodService.findByAllSearch(foodDtoSearch,pageable);
+        if (foodDtos.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(foodDtos,HttpStatus.OK);
+    }
 
 }

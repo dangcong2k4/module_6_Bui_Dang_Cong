@@ -25,4 +25,9 @@ public class BillHistoryService implements IBillHistoryService {
     public Page<BillHistory> findAllByBill(Bill bill, Pageable pageable) {
         return billHistoryRepository.findAllByBill(bill, pageable);
     }
+
+    @Override
+    public Page<BillHistory> findFoodByQuantity(Pageable pageable) {
+        return billHistoryRepository.findFoodByQuantity(pageable);
+    }
 }

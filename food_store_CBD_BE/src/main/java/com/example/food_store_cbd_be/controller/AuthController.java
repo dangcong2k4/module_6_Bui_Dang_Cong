@@ -1,17 +1,17 @@
 package com.example.food_store_cbd_be.controller;
 
-import com.example.food_store_cbd_be.dto.request.ChangePasswordForm;
-import com.example.food_store_cbd_be.dto.request.SignInForm;
-import com.example.food_store_cbd_be.dto.request.SignUpForm;
-import com.example.food_store_cbd_be.dto.request.UpdateUserForm;
+import com.example.food_store_cbd_be.dto.*;
+import com.example.food_store_cbd_be.dto.request.*;
 import com.example.food_store_cbd_be.dto.response.JwtResponse;
 import com.example.food_store_cbd_be.dto.response.ResponseMessage;
+import com.example.food_store_cbd_be.model.cart.Cart;
 import com.example.food_store_cbd_be.model.user.Role;
 import com.example.food_store_cbd_be.model.user.User;
 import com.example.food_store_cbd_be.security.jwt.JwtProvider;
 import com.example.food_store_cbd_be.security.userPrincipcal.UserPrinciple;
 import com.example.food_store_cbd_be.service.IRoleService;
 import com.example.food_store_cbd_be.service.IUserService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -49,6 +50,11 @@ public class AuthController {
     @PostMapping("/signup")
     public ResponseEntity<?> register(@Valid @RequestBody SignUpForm signUpForm, BindingResult bindingResult) {
         new SignUpForm().validate(iUserService.findAll(),signUpForm,bindingResult);
+        System.out.println(signUpForm.getPhoneNumber());
+        System.out.println(signUpForm.getName());
+        System.out.println(signUpForm.getEmail());
+        System.out.println(signUpForm.getPassword());
+        System.out.println(signUpForm.getRoles());
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(bindingResult.getFieldErrors(),HttpStatus.BAD_REQUEST);
         }
@@ -58,7 +64,11 @@ public class AuthController {
         if (iUserService.existsByEmail(signUpForm.getEmail())) {
             return new ResponseEntity<>(new ResponseMessage("Email " + signUpForm.getEmail() + " đã được sử dụng"), HttpStatus.BAD_REQUEST);
         }
-        User user = new User(signUpForm.getUsername(), passwordEncoder.encode(signUpForm.getPassword()), signUpForm.getName(), signUpForm.getEmail());
+        if (iUserService.existsByPhoneNumber(signUpForm.getPhoneNumber())) {
+            return new ResponseEntity<>(new ResponseMessage("Số điện thoại " + signUpForm.getPhoneNumber() + " đã được sử dụng"), HttpStatus.BAD_REQUEST);
+        }
+
+        User user = new User(signUpForm.getUsername(), passwordEncoder.encode(signUpForm.getPassword()), signUpForm.getName(),signUpForm.getPhoneNumber(), signUpForm.getEmail());
         Set<String> strRoles = signUpForm.getRoles();
         Set<Role> roles = new HashSet<>();
         strRoles.forEach(role -> {
@@ -137,6 +147,8 @@ public class AuthController {
     public ResponseEntity<?> updateUser(@Valid @RequestBody UpdateUserForm updateUserForm, BindingResult bindingResult) {
        new UpdateUserForm().validate(iUserService.findAll(),updateUserForm,bindingResult);
         if (bindingResult.hasErrors()) {
+            System.out.println(updateUserForm.getAddress());
+            System.out.println(updateUserForm.getAvatar());
            return new ResponseEntity<>(bindingResult.getFieldErrors(),HttpStatus.NOT_ACCEPTABLE);
        }
         iUserService.updateUser(updateUserForm);
@@ -146,5 +158,34 @@ public class AuthController {
     @GetMapping("/profile/{id}")
     public ResponseEntity<?> profile(@PathVariable("id") int id) {
         return new ResponseEntity<>(iUserService.findById(id),HttpStatus.ACCEPTED);
+    }
+
+    @PostMapping("/usernameCheck")
+    public ResponseEntity<?> checkUsername(@RequestBody UsernameDto usernameDto) {
+        if (iUserService.existsByUsername(usernameDto.getUsername())) {
+            return new ResponseEntity<>(true,HttpStatus.OK);
+        }
+        return new ResponseEntity<>(false,HttpStatus.OK);
+    }
+
+    @PostMapping("/emailCheck")
+    public ResponseEntity<?> checkEmail(@RequestBody EmailDto emailDto) {
+        if (iUserService.existsByEmail(emailDto.getEmail())) {
+            return new ResponseEntity<>(true,HttpStatus.OK);
+        }
+        return new ResponseEntity<>(false,HttpStatus.OK);
+    }
+
+    @PostMapping("/phoneNumberCheck")
+    public ResponseEntity<?> checkPhoneNumber(@RequestBody PhoneNumber phoneNumber) {
+        if (iUserService.existsByPhoneNumber(phoneNumber.getPhoneNumber())) {
+            return new ResponseEntity<>(true,HttpStatus.OK);
+        }
+        return new ResponseEntity<>(false,HttpStatus.OK);
+    }
+    @PostMapping("/editAvatar")
+    public ResponseEntity<?> editAvatar(@RequestBody AvatarDto avatarDto) {
+        iUserService.updateAvatar(avatarDto.getId(),avatarDto.getAvatar());
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

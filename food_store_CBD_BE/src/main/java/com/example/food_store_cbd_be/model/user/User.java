@@ -25,12 +25,19 @@ public class User {
     public User() {
     }
 
-    public User(String username, String password, String name, String email) {
+    public User(String username, String password, String name, String phoneNumber, String email) {
+        this.name = name;
         this.username = username;
         this.password = password;
-        this.name = name;
+        this.phoneNumber = phoneNumber;
         this.email = email;
     }
+//    public User(String username, String password, String name, String email) {
+//        this.username = username;
+//        this.password = password;
+//        this.name = name;
+//        this.email = email;
+//    }
 
     public Integer getId() {
         return id;
