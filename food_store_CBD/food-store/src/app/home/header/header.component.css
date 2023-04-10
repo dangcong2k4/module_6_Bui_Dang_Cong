@@ -266,7 +266,6 @@ nav ul li a{
 .cart:hover {
   transform: scale(1.3);
   transition: transform .2s; /* Animation */
-
 }
 .hover{
   display: inline;
@@ -274,6 +273,14 @@ nav ul li a{
 .hover:hover{
   color: #006600;
 }
+
+.hover2{
+  display: inline;
+  margin-top: 10px;
+}
+/*.hover2:hover{*/
+/*;*/
+/*}*/
 /*----------------------------------------------------*/
 
 #kitty-drop {
@@ -348,3 +355,74 @@ a {
   text-decoration:none;
 }
 
+#kitty-drop2 {
+  text-align:left;
+  display:inline;
+  margin:10px 0;
+  padding:15px;
+  list-style:none;
+}
+
+#kitty-drop2 li{
+  display:inline-block;
+  margin-right: -4px;
+  position: relative;
+  padding: 15px 20px;
+  color: rgb(174, 226, 196);
+  background: transparent;
+  cursor: pointer;
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  -ms-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  transition: all 0.2s;
+}
+
+#kitty-drop2 li:hover {
+  background: transparent;
+  color: #fff;
+}
+
+#kitty-drop2 li ul {
+  padding: 0;
+  position: absolute;
+  top: 64px;
+  left: 0;
+  width: 150px;
+  color: black;
+  background-color: white;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  display: none;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transiton: opacity 0.2s;
+  -moz-transition: opacity 0.2s;
+  -ms-transition: opacity 0.2s;
+  -o-transition: opacity 0.2s;
+  -transition: opacity 0.2s;
+}
+
+#kitty-drop2 li ul li {
+  background: lightgray;
+  display: block;
+  color: black;
+  /*text-shadow: 0 -1px 0 #000;*/
+}
+
+#kitty-drop2 li ul li:hover {
+  background: #555;
+  color: white;
+}
+
+#kitty-drop2 li:hover ul {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+}
+
+a {
+  color: inherit;
+  text-decoration:none;
+}

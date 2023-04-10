@@ -9,6 +9,9 @@ import {Food} from "../../model/food";
 import {User} from "../../model/user";
 import {TokenService} from "../../service/JWT/token.service";
 import {LoginService} from "../../service/JWT/login.service";
+import {PageFood} from "../../model/pageFood";
+import {FormBuilder, FormGroup} from "@angular/forms";
+import {BillHistory} from "../../model/bill-history";
 
 @Component({
   selector: 'app-body',
@@ -17,18 +20,30 @@ import {LoginService} from "../../service/JWT/login.service";
 })
 export class BodyComponent implements OnInit {
   foodList;
+  billHis:BillHistory;
   food: Food;
   user:User;
+  role='';
+  pageFood: PageFood;
+  rfSearch: FormGroup;
   size:string = 'S';
   index: number;
   isLogged = false;
   constructor(private title:Title,private foodService:FoodService,private router:Router,
               private shareService:ShareService,private cartService:CartService,
-              private token:TokenService,private loginService:LoginService,) {
+              private token:TokenService,private loginService:LoginService,private formBuilder: FormBuilder) {
     this.getAll()
+    this.getAll2()
   }
-
+  getAll2() {
+    this.foodService.getAll().subscribe(data => {
+      console.log(data)
+      this.billHis = data
+    })
+  }
   ngOnInit(): void {
+    this.searchFood();
+    this.findByAllFood(0);
     this.title.setTitle('Trang Chủ');
     window.scrollTo(1900, 300);
     this.isLogged = this.token.isLogger();
@@ -43,6 +58,7 @@ export class BodyComponent implements OnInit {
       this.loginService.profile(this.token.getId()).subscribe( next => {
         this.user = next
       })
+      this.role = this.token.getRole()
     }
   }
 
@@ -96,5 +112,37 @@ export class BodyComponent implements OnInit {
         });
       })
     }
+  }
+  findByAllFood(pageNumber: number){
+    this.foodService.findAllList(this.rfSearch.value,pageNumber).subscribe(
+      data => {
+        this.pageFood = data;
+      }
+    )
+  }
+
+  searchFood(){
+    this.rfSearch = this.formBuilder.group({
+      priceMin: [0],
+      priceMax: [10000000],
+      name: [""]
+    })
+  }
+  setSearch(number:string) {
+    let arr = number.split(",")
+    let priceMin = parseInt(arr[0]);
+    let priceMax = parseInt(arr[1]);
+    // alert(priceMin+" va "+priceMax)
+    this.rfSearch.setValue({
+      name: this.rfSearch.value.name,
+      priceMin,
+      priceMax,
+    });
+    this.findByAllFood(0);
+  }
+
+  gotoPage(pageNumber: number) {
+    window.scrollTo(0,300);
+    this.findByAllFood(pageNumber);
   }
 }

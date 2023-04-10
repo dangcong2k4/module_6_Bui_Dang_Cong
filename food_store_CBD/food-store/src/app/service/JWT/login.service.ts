@@ -19,7 +19,7 @@ export class LoginService {
       dateOfBirth: obj.dateOfBirth,avatar: obj.avatar,address: obj.address})
   }
   register(obj):Observable<any> {
-    return this.http.post('http://localhost:8080/api/auth/signup',{username: obj.username,name: obj.name,email:obj.email,password:obj.password,confirmPassword: obj.confirmPassword,roles: [obj.roles]});
+    return this.http.post('http://localhost:8080/api/auth/signup',{username: obj.username,name: obj.name,email:obj.email,phoneNumber:obj.phoneNumber,password:obj.password,confirmPassword: obj.confirmPassword,roles: [obj.roles]});
   }
   changePassword(obj):Observable<any> {
     return this.http.post('http://localhost:8080/api/auth/change-password',{username: this.tokenService.getUsername(),password: obj.password,newPassword:obj.newPassword,confirmPassword:obj.confirmPassword})
@@ -27,5 +27,31 @@ export class LoginService {
 
   profile(id):Observable<any> {
     return this.http.get<any>('http://localhost:8080/api/auth/profile/'+id);
+  }
+
+  checkUsername(username):Observable<any> {
+    let dto = {
+      username:username
+    }
+   return this.http.post<any>('http://localhost:8080/api/auth/usernameCheck',dto);
+ }
+ checkEmail(email):Observable<any> {
+    let dto = {
+      email:email
+    }
+   return this.http.post<any>('http://localhost:8080/api/auth/emailCheck',dto);
+ }
+ checkPhoneNumber(phoneNumber):Observable<any> {
+    let dto = {
+      phoneNumber:phoneNumber
+    }
+   return this.http.post<any>('http://localhost:8080/api/auth/phoneNumberCheck',dto);
+ }
+  updateAvatar(id,avatar):Observable<any> {
+    let dto = {
+      id:id,
+      avatar:avatar
+    }
+    return this.http.post<any>('http://localhost:8080/api/auth/editAvatar',dto);
   }
 }

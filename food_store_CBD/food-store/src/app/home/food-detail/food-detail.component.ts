@@ -18,6 +18,7 @@ import {Cart} from "../../model/cart";
 })
 export class FoodDetailComponent implements OnInit {
   food: Food;
+  role='';
   isLogged = false;
   user:User;
   size:string = 'S';
@@ -54,6 +55,7 @@ export class FoodDetailComponent implements OnInit {
       this.loginService.profile(this.token.getId()).subscribe( next => {
         this.user = next
       })
+      this.role = this.token.getRole();
     }
   }
 

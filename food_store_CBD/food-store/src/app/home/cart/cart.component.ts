@@ -11,6 +11,7 @@ import {LoginService} from "../../service/JWT/login.service";
 import {ShareService} from "../../service/JWT/share.service";
 import {Food} from "../../model/food";
 import {render} from 'creditcardpayments/creditCardPayments';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-cart',
@@ -28,7 +29,7 @@ export class CartComponent implements OnInit {
   isLogged = false;
   isPaypal = false;
   constructor(private token: TokenService, private billService: BillService, private cartService: CartService,
-              private loginService: LoginService, private shareService: ShareService) {
+              private loginService: LoginService, private shareService: ShareService, private router: Router) {
     this.billService.getAllPaymentMethod().subscribe(next => {
       this.payment = next
     });
@@ -43,13 +44,16 @@ export class CartComponent implements OnInit {
 
     this.isLogged = this.token.isLogger();
     this.loader();
-    this.getValue()
     this.shareService.getClickEvent().subscribe(next => {
       this.isLogged = this.token.isLogger();
       this.loader();
       this.getCart()
-      this.getValue()
     })
+    if (!this.token.isLogger()) {
+      this.router.navigateByUrl('/home')
+    } else {
+      this.getValue();
+    }
   }
 
   loader() {
@@ -102,8 +106,8 @@ export class CartComponent implements OnInit {
       Swal.fire({
         position: 'center',
         icon: 'error',
-        title: 'Thêm mới thất bại!',
-        text: 'Thêm mới thất bại',
+        title: 'Thanh toán thất bại!',
+        text: 'Thanh toán thất bại',
         showConfirmButton: false,
         timer: 2000
       });

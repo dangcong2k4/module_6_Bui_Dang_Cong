@@ -1,63 +1,117 @@
-<div class="background" style="height: 700px">
+<div class="background" style="height: 900px">
 
-<main class="d-flex align-items-center">
-  <div class="container" style="width: 600px;margin-top: 50px; margin-bottom: 100px">
-    <div class="card login-card">
-<!--      <div class="row no-gutters">-->
-<!--        <div class="col-md-5">-->
-<!--          <img src="https://png.pngtree.com/thumb_back/fw800/background/20190221/ourmid/pngtree-bribe-mobile-phone-discount-ad-image_40411.jpg" alt="login" class="login-card-img">-->
-<!--        </div>-->
+  <main class="d-flex align-items-center">
+    <div class="container" style="width: 600px;margin-top: 50px; margin-bottom: 100px">
+      <div class="card login-card">
 
-          <div class="card-body">
-            <div class="text-center">
-              <p class="login-card-description" style="font-size: 30px;font-weight: bold">Tạo tài khoản</p>
+
+        <div class="card-body">
+          <div class="text-center">
+            <p class="login-card-description" style="font-size: 30px;font-weight: bold">Tạo tài khoản</p>
+          </div>
+
+          <form [formGroup]="registerForm" (ngSubmit)="register()">
+
+            <div class="form-outline" style="height: 100px">
+                          <b>Tên đăng nhập</b>
+              <input type="text" formControlName="username" #checkName (ngModelChange)="checkUserName(checkName.value)"
+                     name="username" id="username" class="form-control form-control-lg"
+                     style="height: 30px;width: 430px;margin-bottom: 0"  [ngClass]="(registerForm.controls['username'].touched)?
+                      (registerForm.controls['username'].invalid || registerForm.errors?.areEqual)?'is-invalid':'is-valid':''">
+              <p style="color: red;position: absolute"
+                 *ngIf="(clickButton&&registerForm.controls['username'].hasError('invalidName'))||
+                        registerForm.controls['username'].hasError('invalidName')&&registerForm.controls['username'].touched">* Tên {{checkName.value}} đã tồn tại.</p>
+
+              <div *ngIf="registerForm.controls['username'].hasError('minlength') &&
+                     registerForm.controls['username'].touched" style="color: red">Tên đăng nhập phải nhiều hơn 5 ký tự</div>
+              <span style="color: red">{{usernameError}}</span>
             </div>
 
-            <form [formGroup]="registerForm" (ngSubmit)="register()">
+            <div class="form-outline" style="height: 100px">
+              <b>Họ và tên</b>
+              <input type="text" formControlName="name"
+                     name="name" id="name" class="form-control" style="height: 30px;width: 430px;margin-bottom: 0"
+                     [ngClass]="(registerForm.controls['name'].touched)?
+                      (registerForm.controls['name'].invalid || registerForm.errors?.areEqual)?'is-invalid':'is-valid':''">
+              <div *ngIf="registerForm.controls['name'].hasError('minlength') &&
+                     registerForm.controls['name'].touched" style="color: red">Họ và tên phải nhiều hơn 5 ký tự</div>
+              <div *ngIf="registerForm.controls['name'].hasError('maxlength') &&
+                     registerForm.controls['name'].touched" style="color: red">Họ và tên phải ít hơn 30 ký tự</div>
+              <span style="color: red">{{nameError}}</span>
+            </div>
 
-              <div class="form-outline">
-                <input type="text" formControlName="username"
-                       name="username" id="username" class="form-control form-control-lg" style="height: 30px;width: 430px" >
-                <label for="username" class="form-label"><b>Tên đăng nhập</b></label>
-                <span class="text-danger">{{usernameError}}</span>
-              </div>
+            <div class="form-outline" style="height: 100px">
+              <b>Email</b>
+              <input type="email" formControlName="email" #checkEmail (ngModelChange)="checkemail(checkEmail.value)"
+                     name="email" id="email" class="form-control form-control-lg" style="height: 30px;width: 430px;margin-bottom: 0"
+                     [ngClass]="(registerForm.controls['email'].touched)?
+                      (registerForm.controls['email'].invalid || registerForm.errors?.areEqual)?'is-invalid':'is-valid':''">
+              <p style="color: red;position: absolute"
+                 *ngIf="(clickButton&&registerForm.controls['email'].hasError('invalidEmail'))||
+                        registerForm.controls['email'].hasError('invalidEmail')&&registerForm.controls['email'].touched">* Email {{checkEmail.value}} đã được sự dụng.</p>
 
-              <div class="form-outline">
-                <input type="text" formControlName="name"
-                       name="name" id="name" class="form-control"  style="height: 30px;width: 430px">
-                <label for="name" class="form-label"><b>Họ và tên</b></label>
-                <span class="text-danger">{{nameError}}</span>
-              </div>
+              <div *ngIf="registerForm.controls['email'].hasError('minlength') &&
+                     registerForm.controls['email'].touched" style="color: red">Email phải nhiều hơn 12 ký tự</div>
+              <div *ngIf="registerForm.controls['email'].hasError('maxlength') &&
+                     registerForm.controls['email'].touched" style="color: red">Email phải ít hơn 50 ký tự</div>
+              <div *ngIf="registerForm.controls['email'].hasError('pattern') &&
+                     registerForm.controls['email'].touched
+                     && !registerForm.controls['email'].hasError('minlength')
+                     && !registerForm.controls['email'].hasError('maxlength')" style="color: red;width: 500px">Email phải viết đúng định dạng->Ví Dụ: cong@gmail.com</div>
+              <span style="color: red">{{emailError}}</span>
+            </div>
 
-              <div class="form-outline">
-                <input type="email" formControlName="email"
-                       name="email" id="email" class="form-control"  style="height: 30px;width: 430px">
-                <label for="email" class="form-label"><b>Email</b></label>
-                <span class="text-danger">{{emailError}}</span>
-              </div>
+            <div class="form-outline" style="height: 100px">
+              <b>Số điện thoại</b>
+              <input type="text" formControlName="phoneNumber" #checkPhone (ngModelChange)="checkPhoneNumber(checkPhone.value)"
+                     name="phoneNumber" id="phoneNumber" class="form-control" style="height: 30px;width: 430px;margin-bottom: 0"
+                     [ngClass]="(registerForm.controls['phoneNumber'].touched)?
+                      (registerForm.controls['phoneNumber'].invalid || registerForm.errors?.areEqual)?'is-invalid':'is-valid':''">
+              <p style="color: red;position: absolute"
+                 *ngIf="(clickButton&&registerForm.controls['phoneNumber'].hasError('invalidPhoneNumber'))||
+                        registerForm.controls['phoneNumber'].hasError('invalidPhoneNumber')&&registerForm.controls['phoneNumber'].touched">* Số điện thoại {{checkPhone.value}} đã được sử dụng.</p>
 
-              <div class="form-outline">
-                <input type="password" formControlName="password"
-                       name="password" id="password" class="form-control"  style="height: 30px;width: 430px">
-                <label for="password" class="form-label"><b>Mật khẩu</b></label>
-                <span class="text-danger">{{passwordError}}</span>
-              </div>
+              <div *ngIf="registerForm.controls['phoneNumber'].hasError('minlength') &&
+                     registerForm.controls['phoneNumber'].touched" style="color: red">Số điện thoại phải là 10 chữ số</div>
+              <div *ngIf="registerForm.controls['phoneNumber'].hasError('maxlength') &&
+                     registerForm.controls['phoneNumber'].touched" style="color: red">Số điện thoại phải là 10 chữ số</div>
+              <div *ngIf="registerForm.controls['phoneNumber'].hasError('pattern') &&
+                     registerForm.controls['phoneNumber'].touched
+                     && !registerForm.controls['phoneNumber'].hasError('minlength')
+                     && !registerForm.controls['phoneNumber'].hasError('maxlength')" style="color: red;width: 500px">Số điện thoại phải bắt đầu bằng số 0 và không có chữ cái</div>
+              <span style="color: red">{{phoneNumberError}}</span>
+            </div>
 
-              <div class="form-outline">
-                <input type="password" formControlName="confirmPassword"
-                       name="confirmPassword" id="confirmPassword" class="form-control"  style="height: 30px;width: 430px">
-                <label for="confirmPassword" class="form-label"><b>Mật khẩu xác nhận</b></label>
-                <span class="text-danger">{{confirmPasswordError}}</span>
-              </div>
-              <div class="text-center" style="width: 430px">
-                <input name="login" id="login" class="btn btn-block  mb-4 btn-login" style="width: 50%" type="submit" value="Đăng kí">
-              </div>
+            <div class="form-outline" style="height: 100px">
+             <b>Mật khẩu</b>
+              <input type="password" formControlName="password"
+                     name="password" id="password" class="form-control" style="height: 30px;width: 430px;margin-bottom: 0"
+                     [ngClass]="(registerForm.controls['password'].touched)?
+                      (registerForm.controls['password'].invalid || registerForm.errors?.areEqual)?'is-invalid':'is-valid':''">
 
-            </form>
-          </div>
+              <div *ngIf="registerForm.controls['password'].hasError('minlength') &&
+                     registerForm.controls['password'].touched" style="color: red">Mật khẩu phải nhiều hơn 3 ký tự</div>
+              <span style="color: red">{{passwordError}}</span>
+            </div>
+
+            <div class="form-outline" style="height: 100px">
+             <b>Mật khẩu xác nhận</b>
+              <input type="password" formControlName="confirmPassword"
+                     name="confirmPassword" id="confirmPassword" class="form-control" style="height: 30px;width: 430px;margin-bottom: 0"
+                     [ngClass]="(registerForm.controls['confirmPassword'].touched)?
+                      (registerForm.controls['confirmPassword'].invalid || registerForm.errors?.areEqual)?'is-invalid':'is-valid':''">
+              <span style="color: red">{{confirmPasswordError}}</span>
+            </div>
+            <div class="text-center" style="width: 430px">
+              <input name="login" id="login" class="btn btn-block  mb-4 btn-login" style="width: 50%" type="submit"
+                     value="Đăng kí">
+            </div>
+
+          </form>
+        </div>
       </div>
     </div>
-<!--  </div>-->
+    <!--  </div>-->
 
-</main>
+  </main>
 </div>

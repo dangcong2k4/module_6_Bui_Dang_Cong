@@ -10,7 +10,7 @@ export class FoodService {
   constructor(private httpClient: HttpClient) { }
 
   getAll(): Observable<any> {
-    return this.httpClient.get<any>("http://localhost:8080/food/list")
+    return this.httpClient.get<any>("http://localhost:8080/billHistory/showFood")
   }
   getAllTrashCan(page): Observable<any> {
     return this.httpClient.get<any>("http://localhost:8080/food/TrashCan?page=" + page)
@@ -41,6 +41,10 @@ export class FoodService {
 
   findAllSearch(search, page): Observable<any> {
     return this.httpClient.post<any>("http://localhost:8080/food/search" + "?page=" + page , search);
+  }
+
+  findAllList(search, page): Observable<any> {
+    return this.httpClient.post<any>("http://localhost:8080/food/showList" + "?page=" + page , search);
   }
 
 

@@ -55,4 +55,8 @@ export class BillComponent implements OnInit {
       this.billHistory= next
     })
   }
+  gotoPage(pageNumber: number) {
+    window.scrollTo(0,300);
+    this.getBill(pageNumber);
+  }
 }

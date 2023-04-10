@@ -25,8 +25,43 @@
         </tbody>
       </table>
     </div>
+    <div class="col-12" style="margin:40px">
+      <nav>
+        <ul class="pagination justify-content-center">
+          <li class="page-item"><a class="page-link"
+                                   [ngClass]="pageBill?.first ? 'disabled': ''"
+                                   (click)="gotoPage(0)"> << </a></li>
+          <li class="page-item" *ngIf="pageBill.number - 2 > 0">
+            <a class="page-link" (click)="gotoPage(pageBill.number - 3)">{{pageBill.number - 2}}</a>
+          </li>
+          <li class="page-item" *ngIf="pageBill.number - 1 > 0">
+            <a class="page-link" (click)="gotoPage(pageBill.number - 2)">{{pageBill.number - 1}}</a>
+          </li>
+          <li class="page-item" *ngIf="pageBill.number > 0">
+            <a class="page-link" (click)="gotoPage(pageBill.number   - 1)">{{pageBill.number}}</a>
+          </li>
+          <li class="page-item active"><a class="page-link">{{pageBill.number + 1}}</a></li>
+
+          <li class="page-item" *ngIf="pageBill.number + 2 <= pageBill.totalPages">
+            <a class="page-link" (click)="gotoPage(pageBill.number + 1)">{{pageBill.number + 2}}</a>
+          </li>
+          <li class="page-item" *ngIf="pageBill.number + 3 <= pageBill.totalPages">
+            <a class="page-link" (click)="gotoPage(pageBill.number + 2)">{{pageBill.number + 3}}</a>
+          </li>
+          <li class="page-item" *ngIf="pageBill.number + 4 <= pageBill.totalPages">
+            <a class="page-link" (click)="gotoPage(pageBill.number + 3)">{{pageBill.number + 4}}</a>
+          </li>
+          <li class="page-item"><a class="page-link"
+                                   [ngClass]="pageBill.last ? 'disabled': ''"
+                                   (click)="gotoPage(pageBill.totalPages - 1)"> >> </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
   </div>
-  <div *ngIf="index==1">
+  </div>
+  <div *ngIf="index==1"  style="margin-left: 70px;margin-right: 70px;margin-bottom: 100px">
     <h1 class="text-center" style="margin: 60px 0 50px">Chi tiết</h1>
     <div style="height: 300px;">
       <table class="table table-striped table-bordered" >
@@ -50,8 +85,8 @@
         </tbody>
       </table>
     </div>
-    <button class="btn btn-primary" (click)="index=0">Quay lại lịch sử mua hàng</button>
+    <button class="btn btn-primary" (click)="index=0" style="margin-left: 560px">Quay lại lịch sử mua hàng</button>
   </div>
 
 
-</div>
+

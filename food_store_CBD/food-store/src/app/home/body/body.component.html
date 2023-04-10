@@ -2,23 +2,118 @@
   <div class="col-lg-3 sticky-top2"  style="margin-bottom: 335px">
     <img src="https://i.imgur.com/FPbWYHe.jpg" style="width: 345px;height: 670px" >
   </div>
-  <div class="col-lg-8" style="margin-left: 450px;margin-top: -1050px">
-    <section class="section">
-      <div class="grid">
-        <article class="card" style="margin-top: 100px" *ngFor="let food of foodList['content'], index as i">
-          <img class="card__image" src="{{food.image}}" (click)="showDetail(food.id)" style="margin-right: 7px"/>
-          <div class="card__data">
-            <div class="card__info">
-              <h2>{{food.name}}</h2>
-              <p>{{food.description }}</p>
-            </div>
-            <h3 class="card__price">{{food.price | currency: 'VND': 'symbol'}}</h3>
-            <button class="card__add" (click)="addCart(food.id)">+</button>
-          </div>
-        </article>
+
+
+  <div class="col-lg-8" style="margin-left: 420px;margin-top: -980px">
+    <div class="container mt-5 mb-5" style="margin-left: -50px">
+      <div class="text-center">
+        <h1 style="width: 1000px;background: #FF9933"><p
+          class="thanh">
+          4 MÓN ĂN ĐƯỢC BÁN NHIỀU NHẤT
+        </p></h1>
       </div>
-    </section>
+    </div>
+    <div class="col-md-12" style="margin-top: -70px">
+      <section class="section" style="padding-bottom: 10px">
+        <div class="grid">
+          <article class="card" style="margin-top: 50px" *ngFor="let bill of billHis['content'], index as i">
+            <img class="card__image" src="{{bill.food.image}}" (click)="showDetail(bill.food.id)" style="margin-right: 7px"/>
+            <div class="card__data">
+              <div class="card__info">
+                <h2>{{bill.food.name}}</h2>
+                <p>{{bill.food.description }}</p>
+              </div>
+              <h3 class="card__price">{{bill.food.price | number}}đ</h3>
+              <button *ngIf="role=='ROLE_CUSTOMER'|| role==''" class="card__add" (click)="addCart(bill.food.id)">+</button>
+            </div>
+          </article>
+        </div>
+      </section>
+    </div>
+    <div class="container mt-5 mb-5" style="margin-left: -50px">
+      <div class="text-center">
+        <h1 style="width: 1000px;background: #FF9933"><p
+          class="thanh">
+          TẤT CẢ MÓN ĂN
+        </p></h1>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <form *ngIf="rfSearch" [formGroup]="rfSearch" (ngSubmit)="findByAllFood(0)">
+        <div class="row">
+          <div class="col-md-6">
+            <select #select (change)="setSearch(select.value)" class="form-control" style="width: 300px;margin-left: auto">
+              <option [value]="'0,2000000'" value="">Tất cả món ăn</option>
+              <option [value]="'0,20000'" value="">0đ - 20000đ</option>
+              <option [value]="'20000,30000'">20000đ - 30000đ</option>
+              <option [value]="'30000,40000'">30000đ - 40000đ</option>
+              <option [value]="'40000,2000000003000'">> 40000đ</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <input style="display: inline; width: 300px" formControlName="name" class="form-control" placeholder="tìm kiếm theo tên món ăn">
+            <button class="btn" style="display: inline;margin-top: -5px;background-color: #FF9933;margin-left: 3px"><i class="fas fa-search"></i></button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div *ngIf="pageFood == null" style="height: 500px" class="text-center">
+      <img src="https://i.imgur.com/X61fAYt.png" alt="">
+      <h1 class="text-center" style="margin: 30px 0 30px">Không tìm thấy kết quả mà bạn cần tìm</h1>
+    </div>
+    <div *ngIf="pageFood != null" class="col-md-12">
+      <section class="section">
+        <div class="grid">
+          <article class="card" style="margin-top: 70px" *ngFor="let food of pageFood['content'], index as i">
+            <img class="card__image" src="{{food.image}}" (click)="showDetail(food.id)" style="margin-right: 7px"/>
+            <div class="card__data">
+              <div class="card__info">
+                <h2>{{food.name}}</h2>
+                <p>{{food.description }}</p>
+              </div>
+              <h3 class="card__price">{{food.price | number}}đ</h3>
+              <button *ngIf="role=='ROLE_CUSTOMER'|| role==''" class="card__add" (click)="addCart(food.id)">+</button>
+            </div>
+          </article>
+        </div>
+      </section>
+    </div>
+    <div *ngIf="pageFood != null" class="col-12" style="margin-bottom: 80px">
+      <nav>
+        <ul class="pagination justify-content-center">
+          <li class="page-item"><a class="page-link"
+                                   [ngClass]="pageFood?.first ? 'disabled': ''"
+                                   (click)="gotoPage(0)"> << </a></li>
+          <li class="page-item" *ngIf="pageFood.number - 2 > 0">
+            <a class="page-link" (click)="gotoPage(pageFood.number - 3)">{{pageFood.number - 2}}</a>
+          </li>
+          <li class="page-item" *ngIf="pageFood.number - 1 > 0">
+            <a class="page-link" (click)="gotoPage(pageFood.number - 2)">{{pageFood.number - 1}}</a>
+          </li>
+          <li class="page-item" *ngIf="pageFood.number > 0">
+            <a class="page-link" (click)="gotoPage(pageFood.number   - 1)">{{pageFood.number}}</a>
+          </li>
+          <li class="page-item active"><a class="page-link">{{pageFood.number + 1}}</a></li>
+
+          <li class="page-item" *ngIf="pageFood.number + 2 <= pageFood.totalPages">
+            <a class="page-link" (click)="gotoPage(pageFood.number + 1)">{{pageFood.number + 2}}</a>
+          </li>
+          <li class="page-item" *ngIf="pageFood.number + 3 <= pageFood.totalPages">
+            <a class="page-link" (click)="gotoPage(pageFood.number + 2)">{{pageFood.number + 3}}</a>
+          </li>
+          <li class="page-item" *ngIf="pageFood.number + 4 <= pageFood.totalPages">
+            <a class="page-link" (click)="gotoPage(pageFood.number + 3)">{{pageFood.number + 4}}</a>
+          </li>
+          <li class="page-item"><a class="page-link"
+                                   [ngClass]="pageFood.last ? 'disabled': ''"
+                                   (click)="gotoPage(pageFood.totalPages - 1)"> >> </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
   </div>
+
 <!--  [routerLink]="['/detail',food.id]"-->
 
 

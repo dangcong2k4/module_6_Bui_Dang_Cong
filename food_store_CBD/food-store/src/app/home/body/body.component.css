@@ -108,3 +108,13 @@ p {
   top: 55px;
   z-index: -100;
 }
+.thanh{
+  background-color: #f4f7f6;
+  width: 500px;
+  line-height: 5px;
+  padding: 15px 5px 13px 5px;
+  margin: auto;
+  color: black;
+  font-size: 25px;
+  border-radius: 10px
+}

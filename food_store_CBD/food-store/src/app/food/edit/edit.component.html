@@ -28,11 +28,12 @@
         <div class="background"></div>
       </label>
       <input id="fileInput" type='file' (change)="showPreview($event)">
-      <div *ngIf="isLoading == true" class="spinner-box">
+      <div style="margin-left: 20px" *ngIf="isLoading == true" class="spinner-box">
         <div class="circle-border">
           <div class="circle-core"></div>
         </div>
       </div>
+      <p style="margin-left: 20px" *ngIf="isLoading==true">Chờ chút nhé...</p>
     </div>
 
 

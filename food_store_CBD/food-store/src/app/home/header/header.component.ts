@@ -88,8 +88,10 @@ export class HeaderComponent implements OnInit{
       this.loginService.profile(this.token.getId()).subscribe(
         next => {
           this.user = next;
+
         }
       )
+      this.role = this.token.getRole();
     }
 
   }

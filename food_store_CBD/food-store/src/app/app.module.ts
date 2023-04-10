@@ -24,6 +24,7 @@ import { ProfileComponent } from './profile/profile.component';
 import {ProfileModule} from "./profile/profile.module";
 import { BillComponent } from './bill/bill.component';
 import {BillModule} from "./bill/bill.module";
+import { ErrorComponent } from './error/error.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import {BillModule} from "./bill/bill.module";
     CartComponent,
     ListComponent,
     SignupComponent,
+    ErrorComponent,
     // BillComponent
   ],
   imports: [
